@@ -1,22 +1,21 @@
 {
-    "version": 2,
-    "projects": {
-      "rootDirectory": "frontend"
-    },
-    "builds": [
-      {
-        "src": "frontend/src/index.html",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "frontend/public"
-        }
+  "version": 2,
+  "projects": {
+    "rootDirectory": "frontend"
+  },
+  "builds": [
+    {
+      "src": "frontend/src/index.html",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/public"
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "frontend/index.html"
-      }
-    ]
-  }
-  
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "frontend/index.html"
+    }
+  ]
+}
