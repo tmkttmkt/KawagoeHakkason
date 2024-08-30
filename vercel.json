@@ -1,5 +1,8 @@
 {
     "version": 2,
+    "projects": {
+      "rootDirectory": "front"
+    },
     "builds": [
       {
         "src": "src/index.html",
