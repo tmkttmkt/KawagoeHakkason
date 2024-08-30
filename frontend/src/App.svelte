@@ -22,11 +22,11 @@
 
 	h1 {
 		font-size: 2em;
-		color: #333;
+		color: rgb(238, 0, 0)000;
 	}
 
 	button {
-		background-color: #333;
+		background-color: #1900ff;
 		color: white;
 		border: none;
 		padding: 0.5em 1em;
