@@ -5,17 +5,17 @@
     },
     "builds": [
       {
-        "src": "src/index.html",
+        "src": "frontend/src/index.html",
         "use": "@vercel/static-build",
         "config": {
-          "distDir": "public"
+          "distDir": "frontend/public"
         }
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/index.html"
+        "dest": "frontend/index.html"
       }
     ]
   }
