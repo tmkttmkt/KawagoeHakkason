@@ -7,9 +7,9 @@
 </script>
 
 <main>
-	<h1>カワゴエ</h1>
+	<h1>埼玉ラリー</h1>
 	<p>{count}</p>
-	<button on:click={increment}>Increment</button>
+	<button on:click={increment}>increment</button>
 </main>
 
 <style>
