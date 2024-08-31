@@ -7,7 +7,7 @@
 </script>
 
 <main>
-	<h1>Simple Counter</h1>
+	<h1>カワゴエ</h1>
 	<p>{count}</p>
 	<button on:click={increment}>Increment</button>
 </main>
