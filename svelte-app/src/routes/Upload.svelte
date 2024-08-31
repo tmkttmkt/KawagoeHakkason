@@ -5,8 +5,8 @@
     async function uploadPhoto() {
         const formData = new FormData();
         formData.append('photo', photo);
-
-        const res = await fetch('http://localhost:5000/upload', {
+        const endpoint = process.env.API_URL || 'http://localhost:5000/upload';
+        const res = await fetch(`${endpoint}/upload`, {
             method: 'POST',
             body: formData,
         });
