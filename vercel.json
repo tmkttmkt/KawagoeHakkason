@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "root": "svelte-app",
   "builds": [
     {
       "src": "src/index.html",
