@@ -1,21 +1,19 @@
 {
   "version": 2,
-  "projects": {
-    "rootDirectory": "frontend"
-  },
+  "root": "svelte-app",
   "builds": [
     {
-      "src": "frontend/src/index.html",
+      "src": "src/index.html",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "frontend/public"
+        "distDir": "public"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "frontend/index.html"
+      "dest": "/index.html"
     }
   ]
 }
