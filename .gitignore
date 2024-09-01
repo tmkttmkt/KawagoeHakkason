@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 /node_modules/
 /public/build/
+=======
+node_modules/
+server/node_modules/
+svelte-app/public/build/
+>>>>>>> main
 
 .DS_Store
