@@ -1,17 +1,9 @@
-<script>
-	let count = 0;
-
-	function increment() {
-		count += 1;
-	}
-</script>
-
 <main>
 	<h1>埼玉ラリー</h1>
-	<p>{count}</p>
-	<button on:click={increment}>increment</button>
-	<me>my phome</me>
-	<other>other</other>
+	<button on:click={() => window.location.href = 'sample.html'}>
+		<me>my phome</me></button>
+	<button on:click={() => window.location.href = 'sample.html'}>
+		<other>other</other></button>
 </main>
 
 <style>
@@ -27,7 +19,7 @@
 	  top: 0; /* 画面の上部に配置 */
 	  left: 50%; /* 水平方向の中央に配置 */
 	  transform: translateX(-50%); /* 中央寄せのための補正 */
-	  font-size: 2em;
+	  font-size: 50px;
 	  color: #333;
 	  margin: 0; /* デフォルトの余白を削除 */
 	  padding: 20px 0; /* 少しスペースを追加 */
@@ -38,6 +30,7 @@
 	  bottom: 0; /* 画面の下部に配置 */
 	  left: 0; /* 左端に配置 */
 	  padding: 10px;
+	  font-size: 100px;
 	  border: 1px solid #333; /* 周りに線を追加 */
 	  background-color: #f0f0f0;
 	  color: #333;
@@ -48,12 +41,13 @@
 	  bottom: 0; /* 画面の下部に配置 */
 	  right: 0; /* 右端に配置 */
 	  padding: 10px;
+	  font-size: 100px;
 	  border: 1px solid #333; /* 周りに線を追加 */
 	  background-color: #f0f0f0;
 	  color: #333;
 	}
 
-	button {
+	/*button {
 	  background-color: #333;
 	  color: white;
 	  border: none;
@@ -64,5 +58,5 @@
 
 	button:hover {
 	  background-color: #555;
-	}
+	}*/
 </style>
