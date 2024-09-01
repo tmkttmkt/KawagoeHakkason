@@ -1,47 +1,63 @@
-<script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
-</script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
-
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  <h1>埼玉ラリー</h1>
+  <button on:click={() => window.location.href = 'sample.html'}>
+  <me>投稿する→</me></button>
+  <button on:click={() => window.location.href = 'sample.html'}>
+  <other>ほかの人の投稿を見る→</other></button>
+  </main>
+  
+  <style>
+  main {
+    text-align: center;
+    padding: 1em;
+    margin: 0;
+    max-width: 240px;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+  
+  h1 {
+    position: absolute; /* 絶対位置に設定 */
+    top: 0; /* 画面の上部に配置 */
+    left: 50%; /* 水平方向の中央に配置 */
+    transform: translateX(-50%); /* 中央寄せのための補正 */
+    font-size: 50px;
+    color: #333;
+    margin: 0; /* デフォルトの余白を削除 */
+    padding: 20px 0; /* 少しスペースを追加 */
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
+  
+  me {
+    position: fixed; /* 固定位置に設定 */
+    bottom: 0; /* 画面の下部に配置 */
+    left: 0; /* 左端に配置 */
+    padding: 10px;
+    font-size: 50px;
+    border: 1px solid #333; /* 周りに線を追加 */
+    background-color: #f0f0f0;
+    color: #333;
   }
-  .read-the-docs {
-    color: #888;
+  
+  other {
+    position: fixed; /* 固定位置に設定 */
+    bottom: 0; /* 画面の下部に配置 */
+    right: 0; /* 右端に配置 */
+    padding: 10px;
+    font-size: 50px;
+    border: 1px solid #333; /* 周りに線を追加 */
+    background-color: #f0f0f0;
+    color: #333;
   }
-</style>
+  
+  /*button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }*/
+  </style>
