@@ -19,7 +19,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vite build --entry front/index.html",
-    "dev": "vite"
+    "dev": "vite dev",
+    "preview": "vite preview"
   },
   "author": "",
   "license": "ISC"
