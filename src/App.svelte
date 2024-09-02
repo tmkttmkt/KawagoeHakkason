@@ -1,8 +1,8 @@
 <main>
 	<h1>埼玉ラリー</h1>
-	<button on:click={() => window.location.href = 'sample.html'}>
-		<me>my phome</me></button>
-	<button on:click={() => window.location.href = 'sample.html'}>
+	<button on:click={() => window.location.href = '/post'}>
+		<me>mine</me></button>
+	<button on:click={() => window.location.href = '/view-posts'}>
 		<other>other</other></button>
 </main>
 
