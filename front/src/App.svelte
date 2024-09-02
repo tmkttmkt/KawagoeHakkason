@@ -1,77 +1,79 @@
 <main>
   <h1>埼玉ラリー</h1>
-  <!-- 画像を中央に配置するために、新しく div 要素を追加し、image-container クラスを付与 -->
+  <!-- 画像を中央に配置するためのコンテナ -->
   <div class="image-container">
     <img src="./src/IMG_0919.jpg" alt="埼玉ラリーの画像" class="main-image">
   </div>
-  <button on:click={() => window.location.href = '/post'}>
-    <me>投稿する→</me>
-  </button>
-  <button on:click={() => window.location.href = '/view/posts'}>
-    <other>ほかの人の投稿を見る→</other>
-  </button>
+  <!-- ボタンを縦に並べて中央に配置するためのコンテナ -->
+  <div class="button-container">
+    <button on:click={() => window.location.href = '/post'}>
+      <me>投稿する→</me>
+    </button>
+    <button on:click={() => window.location.href = '/view/posts'}>
+      <other>ほかの人の投稿を見る→</other>
+    </button>
+  </div>
 </main>
 
 <style>
-  /* main要素のレイアウトをflexboxに変更し、コンテンツを中央に配置 */
+  /* main要素の基本レイアウト設定 */
   main {
-    text-align: center;
-    padding: 1em;
-    margin: 0;
-    max-width: 240px;
+    text-align: center; /* テキストを中央に揃える */
+    /*padding: 1em; /* コンテンツ周囲に余白を追加 写真を上にするためいったんコメントアウト*/
+    margin: 0; /* 要素の外側の余白をなくす */
+    max-width: 240px; /* main要素の最大幅を240pxに制限 */
 
-    /* Flexboxの設定 */
-    display: flex; /* Flexboxレイアウトに変更 */
+    /* Flexboxレイアウトの設定 */
+    display: flex; /* Flexboxレイアウトを使用する */
     flex-direction: column; /* 子要素を縦方向に並べる */
     align-items: center; /* 子要素を水平方向の中央に揃える */
     justify-content: center; /* 子要素を垂直方向の中央に揃える */
-    min-height: 100vh; /* mainの高さを画面全体（ビューの高さ）に設定 */
+    min-height: 100vh; /* main要素の高さを画面全体（ビューポートの高さ）に設定 */
   }
 
+  /* h1要素（タイトル）のスタイル設定 */
   h1 {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 50px;
-    color: #333;
-    margin: 0;
-    padding: 20px 0;
+    position: absolute; /* 画面内の特定の位置に要素を配置するための絶対配置 */
+    top: 0; /* 画面の上部に配置 */
+    left: 50%; /* 画面の横幅の50%の位置に配置 */
+    transform: translateX(-50%); /* 左端基準の配置を中央基準に補正 */
+    font-size: 50px; /* フォントサイズを50pxに設定 */
+    color: #333; /* テキストカラーを濃いグレーに設定 */
+    margin: 0; /* h1要素の外側の余白をなくす */
+    padding: 20px 0; /* 上下に20pxの内側余白を追加 */
   }
 
-  /* 画像を中央に配置するためのコンテナ設定 */
+  /* 画像コンテナのスタイル設定 */
   .image-container {
-    display: flex; /* Flexboxレイアウトに変更 */    
-    justify-content: center; /* 画像を水平方向の中央に揃える */
-    flex-grow: 1; /* 可能な限りコンテナを伸ばす。main全体の高さを満たすために使用 */
+    display: flex; /* Flexboxレイアウトを使用 */
+    justify-content: center; /* コンテナ内の画像を中央に揃える */
+    flex-grow: 1; /* コンテナが可能な限り縦に伸びるように設定 */
   }
 
-  /* 画像の大きさと表示を調整 */
+  /* 画像のスタイル設定 */
   .main-image {
-    width: 100vw; /* 画像の幅をビューの幅の3分の2に設定 */
-    height: auto; /* 画像の高さを自動で調整し、アスペクト比を維持 */
-    max-height: 50vh; /* 画像の高さがビューの高さの2分の1を超えないように設定 */
+    width: 100vw; /* 画像の幅をビューポートの幅全体に設定 */
+    height: auto; /* 画像の高さを自動調整し、アスペクト比を維持 */
+    max-height: 50vh; /* 画像の高さがビューポートの高さの50%を超えないように設定 */
   }
 
-  me {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-    font-size: 50px;
-    border: 1px solid #333;
-    background-color: #f0f0f0;
-    color: #333;
+  /* ボタンコンテナのスタイル設定 */
+  .button-container {
+    display: flex; /* Flexboxレイアウトを使用 */
+    flex-direction: column; /* ボタンを縦方向に並べる */
+    align-items: center; /* ボタンを中央に揃える */
+    width: 100%; /* コンテナの幅をビューポートの幅全体に設定 */
+    padding: 10px 0; /* 上下に10pxの余白を追加 */
   }
 
-  other {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 10px;
-    font-size: 50px;
-    border: 1px solid #333;
-    background-color: #f0f0f0;
-    color: #333;
+  /* ボタンのスタイル設定 */
+  .action-button {
+    width: 80%; /* ボタンの幅をビューポート幅の80%に設定 */
+    padding: 10px; /* ボタン内のテキストに対して10pxの内側余白を追加 */
+    font-size: 20px; /* フォントサイズを20pxに設定 */
+    border: 1px solid #333; /* ボタンに濃いグレーの境界線を追加 */
+    background-color: #f0f0f0; /* ボタンの背景色を薄いグレーに設定 */
+    color: #333; /* ボタンのテキストカラーを濃いグレーに設定 */
+    margin: 5px 0; /* ボタン間に5pxの上下の外側余白を追加 */
   }
 </style>
