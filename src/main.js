@@ -1,10 +1,10 @@
 import './app.css'
-import Header from './Header.svelte'
+import App from './App.svelte'
 
 // ... existing code ...
 /// <reference types="svelte" />
 
-const app = new Header({
+const app = new App({
 
   target: document.getElementById('app'),
 })
