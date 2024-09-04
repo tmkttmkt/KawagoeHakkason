@@ -1,17 +1,18 @@
+<script>
+  import { Link } from "svelte-routing";
+</script>
+
 <main>
-  <h1>埼玉ラリー</h1>
+  <h1 class="shadow">埼玉ラリー</h1>
   <!-- 画像を中央に配置するためのコンテナ -->
   <div class="image-container">
     <img src="./src/IMG_0919.jpg" alt="埼玉ラリーの画像" class="main-image">
   </div>
   <!-- ボタンを縦に並べて中央に配置するためのコンテナ -->
+  <h2 class="shadow">埼玉ラリーって何？</h2>
   <div class="button-container">
-    <button on:click={() => window.location.href = '/post'}>
-      <me>投稿する→</me>
-    </button>
-    <button on:click={() => window.location.href = '/view/posts'}>
-      <other>ほかの人の投稿を見る→</other>
-    </button>
+    <Link to="/post">投稿する→</Link>
+    <Link to="/view_posts">ほかの人の投稿を見る→</Link>
   </div>
 </main>
 
@@ -31,6 +32,16 @@
     min-height: 100vh; /* main要素の高さを画面全体（ビューポートの高さ）に設定 */
   }
 
+  /*h1の文字の縁取り設定(ぼやけた感じ)*/
+  .shadow{
+    text-shadow:
+            3px 3px 3px #000, -3px -3px 3px #000,
+           -3px 3px 3px #000,  3px -3px 3px #000,
+            3px 0px 3px #000, -3px -0px 3px #000,
+            0px 3px 3px #000,  0px -3px 3px #000;
+    margin: 0;
+  }
+
   /* h1要素（タイトル）のスタイル設定 */
   h1 {
     position: absolute; /* 画面内の特定の位置に要素を配置するための絶対配置 */
@@ -38,7 +49,19 @@
     left: 50%; /* 画面の横幅の50%の位置に配置 */
     transform: translateX(-50%); /* 左端基準の配置を中央基準に補正 */
     font-size: 50px; /* フォントサイズを50pxに設定 */
-    color: #333; /* テキストカラーを濃いグレーに設定 */
+    color: #e7dede; /* テキストカラーを濃いグレーに設定 */
+    margin: 0; /* h1要素の外側の余白をなくす */
+    padding: 20px 0; /* 上下に20pxの内側余白を追加 */
+  }
+
+  /* h2要素（タイトル）のスタイル設定 */
+  h2 {
+    position: absolute; /* 画面内の特定の位置に要素を配置するための絶対配置 */
+    top: 0; /* 画面の上部に配置 */
+    left: 50%; /* 画面の横幅の50%の位置に配置 */
+    transform: translateX(-50%); /* 左端基準の配置を中央基準に補正 */
+    font-size: 20px; /* フォントサイズを0pxに設定 */
+    color: #e7dede; /* テキストカラーを濃いグレーに設定 */
     margin: 0; /* h1要素の外側の余白をなくす */
     padding: 20px 0; /* 上下に20pxの内側余白を追加 */
   }
