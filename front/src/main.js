@@ -1,4 +1,3 @@
-import './app.css'
 import Header from './Header.svelte'
 
 // ... existing code ...
