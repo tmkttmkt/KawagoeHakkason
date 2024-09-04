@@ -1,14 +1,12 @@
-<script>
-    import { Link } from "svelte-routing";
-</script>
-
 <main>
-    <h1>埼玉ラリー</h1>
-    <div class="me">
-        <Link to="./post.svelte">漢字クイズアプリ</Link></div>
-    <div class="other">
-        <Link to="./view_posts.svelte">漢字クイズアプリ</Link></div>
-    </main>
+  <h1>埼玉ラリ</h1>
+  <div class="me">
+    <button on:click={() => window.location.href = 'src/post.svelte'}>投稿する→</button>
+  </div>
+  <div class="other">
+    <button on:click={() => window.location.href = 'src/view/posts.svelte'}>ほかの人の投稿を見る→</button>
+  </div>
+</main>
 
     <style>
         main {
