@@ -11,12 +11,10 @@ app.use(cors());
 app.use(express.static('uploads'));
 //APIインポート
 const personalAPI = require('./personal.js');
-const photoAPI = require('./photo.js');
-//const postedAPI = require('./posted.js');
+const postedAPI = require('./posted.js');
 const profileAPI = require('./profile.js');
 app.use("/personal",personalAPI);
-app.use("/photo",photoAPI);
-//app.use("/posted",postedAPI);
+app.use("/posted",postedAPI);
 app.use("/profile",profileAPI);
 
 

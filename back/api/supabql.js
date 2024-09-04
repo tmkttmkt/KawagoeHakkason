@@ -35,18 +35,43 @@ return sel
 }
 
 async function upData(table,date) {     
-  const sel = await supabase.from(table).update(date.update).eq('id',date.who).select()
+  const sel = await supabase.from(table).update(date.updata).eq('id',date.who).select()
   return sel
             
 }
-
-
+function keycheck(fn,type,filterKeys) {
+  return function(req, res) {
+      if(filterKeys.every(key => obj.hasOwnProperty(key))){
+          return fn(req, res);
+      }
+      else{
+          console.error('${type}:必要な引数が足りません')
+          res.json({error:true,msg:'必要な引数が足りません'})
+          
+      }
+  };
+}
+function whocheck(fn,type) {
+  return function(req, res) {
+      let who=sql.findData(title,req.body.user)
+      if(who==null){
+          console.error('${type}:そんなユーザーはいない')
+          res.json({error:true,msg:'そんなユーザーはいない'})
+      }
+      else{
+          return fn(req, res,who);
+          
+      }
+  };
+}
 module.exports = {
     getData,
     setData,
     findData,
     delData,
     upData,
+    keycheck,
+    whocheck,
 }
 
 /*

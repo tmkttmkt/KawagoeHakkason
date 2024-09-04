@@ -1,14 +1,18 @@
 # API
 ## 投稿
 /posted
+### 検索
+get:/search
+body={q:txt}
+res={errer:bool,msg:text,body:obj}
 ### 情報提示
 get:/
-body=Null
-res={errer:bool,msg:text}
+body={id:txt}
+res={errer:bool,msg:text,body:obj}
 ### 投稿
 post:/
-body={id:int,photo:??,where:txt,description:txt,topic:txt}
-res={errer:bool,msg:text}
+body={photo:??,where:txt,description:txt,topic:txt,who:txt}
+res={errer:bool,msg:text,body:int}
 ### 削除
 delete:/
 body={id:int}
@@ -29,8 +33,8 @@ body={user:txt,description:txt}
 res={errer:bool,msg:text}
 ### 情報提示
 get:/
-body=Null
-res={errer:bool,msg:text}
+body={user:txt}
+res={errer:bool,msg:text,body:obj}
 ### ポイント加減算
 put:/point
 body={point:int}
@@ -47,7 +51,7 @@ body={user:txt,pass:txt}
 res={errer:bool,msg:text}
 ### 編集
 put:/
-body={user:txt,pass:txt}
+body={user:txt,pass:txt:nextpass}
 ### 削除
 detele:/
 body={user:txt}
@@ -56,10 +60,10 @@ res={errer:bool,msg:text}
 # テーブル
 ## 個人の情報
 in::ユーザー名(id),パスワード
-out::ユーザー名(id),パスワード
+out::ユーザー名(id),パスワード,プロフィール.id
 ## 投稿
-in::id,写真,位置,説明,お題,いいね
+in::id,写真,位置,説明,お題,いいね,プロフィール
 out::id,写真パス,位置,説明,お題,いいね,プロフィール.id
 ## プロフィール
 in::id,名前,自己紹介,ポイント
-out::id,名前,自己紹介,ポイント,個人の情報.id
+out::id,名前,自己紹介,ポイント
