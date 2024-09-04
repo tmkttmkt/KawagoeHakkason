@@ -11,8 +11,8 @@
   <!-- ボタンを縦に並べて中央に配置するためのコンテナ -->
   <h2 class="shadow">埼玉ラリーって何？</h2>
   <div class="button-container">
-    <Link to="/post">投稿する→</Link>
-    <Link to="/view_posts">ほかの人の投稿を見る→</Link>
+    <a class="action-button" href="/post">投稿する→</a>
+    <a class="action-button" href="/view_posts">ほかの人の投稿を見る→</a>
   </div>
 </main>
 
@@ -22,14 +22,13 @@
     text-align: center; /* テキストを中央に揃える */
     /*padding: 1em; /* コンテンツ周囲に余白を追加 写真を上にするためいったんコメントアウト*/
     margin: 0; /* 要素の外側の余白をなくす */
-    max-width: 240px; /* main要素の最大幅を240pxに制限 */
-
     /* Flexboxレイアウトの設定 */
     display: flex; /* Flexboxレイアウトを使用する */
     flex-direction: column; /* 子要素を縦方向に並べる */
     align-items: center; /* 子要素を水平方向の中央に揃える */
     justify-content: center; /* 子要素を垂直方向の中央に揃える */
     min-height: 100vh; /* main要素の高さを画面全体（ビューポートの高さ）に設定 */
+    background-color:rgb(208, 252, 179);
   }
 
   /*h1の文字の縁取り設定(ぼやけた感じ)*/
@@ -57,12 +56,11 @@
   /* h2要素（タイトル）のスタイル設定 */
   h2 {
     position: absolute; /* 画面内の特定の位置に要素を配置するための絶対配置 */
-    top: 0; /* 画面の上部に配置 */
+    top: 52%; /* 画面の上から60%の位置に配置 */
     left: 50%; /* 画面の横幅の50%の位置に配置 */
     transform: translateX(-50%); /* 左端基準の配置を中央基準に補正 */
-    font-size: 20px; /* フォントサイズを0pxに設定 */
+    font-size: 20px; /* フォントサイズを20pxに設定 */
     color: #e7dede; /* テキストカラーを濃いグレーに設定 */
-    margin: 0; /* h1要素の外側の余白をなくす */
     padding: 20px 0; /* 上下に20pxの内側余白を追加 */
   }
 
@@ -91,12 +89,24 @@
 
   /* ボタンのスタイル設定 */
   .action-button {
-    width: 80%; /* ボタンの幅をビューポート幅の80%に設定 */
+    display: inline-block; /* ボタンをインラインブロックにする */
+    width: 40%; /* ボタンの幅をビューポート幅の80%に設定 */
     padding: 10px; /* ボタン内のテキストに対して10pxの内側余白を追加 */
     font-size: 20px; /* フォントサイズを20pxに設定 */
-    border: 1px solid #333; /* ボタンに濃いグレーの境界線を追加 */
+    border: 2px solid #333; /* ボタンに濃いグレーの境界線を追加 */
     background-color: #f0f0f0; /* ボタンの背景色を薄いグレーに設定 */
     color: #333; /* ボタンのテキストカラーを濃いグレーに設定 */
-    margin: 5px 0; /* ボタン間に5pxの上下の外側余白を追加 */
+    border-radius: 10px; /* ボタンの角を少し丸める */
+    text-align: center; /* テキストを中央に配置 */
+    text-decoration: none; /* リンクの下線をなくす */
+    margin: 10px 0; /* ボタン間に10pxの上下の外側余白を追加 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* ボタンに軽い影を追加 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* ホバー時のアニメーションを追加 */
+  }
+
+  /* ボタンをホバーした際のスタイル */
+  .action-button:hover {
+    background-color: #ddd; /* ホバー時に背景色を少し暗くする */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* ホバー時に影を強調 */
   }
 </style>
