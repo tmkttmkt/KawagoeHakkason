@@ -1,10 +1,13 @@
+<script>
+    import { Link } from "svelte-routing";
+</script>
 <main>
   <h1>埼玉ラリ</h1>
   <div class="me">
-    <button on:click={() => window.location.href = 'src/post.svelte'}>投稿する→</button>
+    <Link to="/post">投稿する→</Link>
   </div>
   <div class="other">
-    <button on:click={() => window.location.href = 'src/view/posts.svelte'}>ほかの人の投稿を見る→</button>
+    <Link to="/view_posts">ほかの人の投稿を見る→</Link>
   </div>
 </main>
 
@@ -15,7 +18,7 @@
           margin: 0;
           max-width: 240px;
         }
-        
+
         h1 {
           position: absolute; /* 絶対位置に設定 */
           top: 0; /* 画面の上部に配置 */
@@ -26,8 +29,8 @@
           margin: 0; /* デフォルトの余白を削除 */
           padding: 20px 0; /* 少しスペースを追加 */
         }
-        
-        me {
+
+        .me {
           position: fixed; /* 固定位置に設定 */
           bottom: 0; /* 画面の下部に配置 */
           left: 0; /* 左端に配置 */
@@ -37,8 +40,8 @@
           background-color: #f0f0f0;
           color: #333;
         }
-        
-        other {
+
+        .other {
           position: fixed; /* 固定位置に設定 */
           bottom: 0; /* 画面の下部に配置 */
           right: 0; /* 右端に配置 */
@@ -48,5 +51,4 @@
           background-color: #f0f0f0;
           color: #333;
         }
-      
         </style>
