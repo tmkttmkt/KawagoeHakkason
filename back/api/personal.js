@@ -30,22 +30,38 @@ detele:/
 body={user:txt,pass:txt}
 res={error:bool,msg:text}
 */
+function deluuser(obj){
+    const { user, ...newObj } = obj;
+    newObj.id=user
+    return newObj
+}
 
 {//登録
     let requestType="post/registration::"+title
-    function httppostregistration(req, res){
-        console.log(req)
-        let body=req.body
+    async function httppostregistration(req, res){
+        let body=deluuser(req.body)
+        
         body.who=id()
-        sel=sql.setData(title,body)
-        sel2=sql.setData("profile",{id:body.who})
+        sel=await sql.setData(title,body)
+        sel2=await sql.setData("profile",{id:body.who,name:"",introduction:"",point:0})
         if(sel.error || sel2.error){
-            console.log("${requestType}:失敗")
-            console.error(sel.error)
-            res.json({error:true,msg:'なんでだろうねわかんない'})
+            if(sel.error.code=='23505'){
+                sel2=await sql.delData("profile",id)
+                console.log(requestType+":重複だよ")
+                console.error(sel.error)
+                res.json({error:true,msg:'その名前では登録できません'})
+
+            }
+            else{
+                console.log(requestType+":失敗")
+                console.error(sel.error)
+                console.error(sel2.error)
+                res.json({error:true,msg:'なんでだろうねわかんない'})
+
+            }
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null})
         }
     }
@@ -53,10 +69,11 @@ res={error:bool,msg:text}
 }
 {//ログイン
     let requestType="post::"+title
-    function httppost(req, res){
-        sel=sql.findData(title,req.body)
+    async function httppost(req, res){
+        let body=deluuser(req.body)
+        sel=await sql.findData(title,body)
         if(sel.error){
-            console.log("${requestType}:失敗")
+            console.log(requestType+"失敗")
             console.error(sel.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
@@ -65,15 +82,15 @@ res={error:bool,msg:text}
             if(flg){
                 if(Object.keys(sel.data).length==1){
                     res.json({result:flg,msg:null})
-                    console.log("${requestType}:ログインします")
+                    console.log(requestType+"ログインします")
                 }
                 else{
-                    console.log("${requestType}:主キーがおかしいや")
+                    console.log(requestType+"主キーがおかしいや")
                     res.json({error:false,msg:"主キーがおかしいや"})
                 }
             }
             else{
-                console.log("${requestType}:主キーが見つからなかった")
+                console.log(requestType+"主キーが見つからなかった")
                 res.json({result:flg,msg:"主キーが見つからなかった"})
             }
         }
@@ -82,10 +99,11 @@ res={error:bool,msg:text}
 }
 {//削除
     let requestType="delete::"+title
-    function httpdelete(req, res){
-        sel=sql.findData(title,req.body)
+    async function httpdelete(req, res){
+        let body=deluuser(req.body)
+        sel=await sql.findData(title,body)
         if(sel.error){
-            console.log("${requestType}:失敗")
+            console.log(requestType+"失敗")
             console.error(sel.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
@@ -94,15 +112,15 @@ res={error:bool,msg:text}
             if(flg){
                 if(Object.keys(obj).length==1){
                     res.json({result:flg,msg:null})
-                    console.log("${requestType}:削除します")
+                    console.log(requestType+"削除します")
                 }
                 else{
-                    console.log("${requestType}:主キーがおかしいや")
+                    console.log(requestType+"主キーがおかしいや")
                     res.json({error:false,msg:"主キーがおかしいや"})
                 }
             }
             else{
-                console.log("${requestType}:主キーが見つからなかった")
+                console.log(requestType+"主キーが見つからなかった")
                 res.json({result:flg,msg:"主キーが見つからなかった"})
             }
         }
@@ -111,10 +129,11 @@ res={error:bool,msg:text}
 }
 {//編集
     let requestType="put::"+title
-    function httpput(req,res){
-        sel=sql.findData(title,req.body)
+    async function httpput(req,res){
+        let body=deluuser(req.body)
+        sel=await sql.findData(title,body)
         if(sel.error){
-            console.log("${requestType}:参照失敗")
+            console.log(requestType+"参照失敗")
             console.error(sel.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
@@ -122,24 +141,24 @@ res={error:bool,msg:text}
             const flg =(sel.data === null)
             if(flg){
                 if(Object.keys(obj).length==1){
-                    sel=sql.upData(title,{who:req.body.user,updata:{nextpass:req.body["nextpass"]}})
+                    sel=await sql.upData(title,{who:req.body.user,updata:{nextpass:req.body["nextpass"]}})
                     if(sel.error){
-                        console.log("${requestType}:編集失敗")
+                        console.log(requestType+"編集失敗")
                         console.error(sel.error)
                         res.json({error:true,msg:'なんでだろうねわかんない'})
                     }
                     else{
                         res.json({result:flg,msg:null})
-                        console.log("${requestType}:編集します") 
+                        console.log(requestType+"編集します") 
                     }
                 }
                 else{
-                    console.log("${requestType}:主キーがおかしいや")
+                    console.log(requestType+"主キーがおかしいや")
                     res.json({error:false,msg:"主キーがおかしいや"})
                 }
             }
             else{
-                console.log("${requestType}:主キーが見つからなかった")
+                console.log(requestType+"主キーが見つからなかった")
                 res.json({result:flg,msg:"主キーが見つからなかった"})
             }
         }

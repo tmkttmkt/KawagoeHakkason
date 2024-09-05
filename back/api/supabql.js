@@ -38,7 +38,8 @@ return sel
 
 //データを挿入
 async function setData(table,date) {          
-  const sel = await supabase.from(table).select("*").insert([date])
+  const sel = await supabase.from(table).insert([date]).select("*");
+
 return sel
 }
 
@@ -49,11 +50,12 @@ async function upData(table,date) {
 }
 function keycheck(fn,type,filterKeys) {
   return function(req, res) {
-      if(filterKeys.every(key => obj.hasOwnProperty(key))){
+      console.log(req.body)
+      if(filterKeys.every(key => req.body.hasOwnProperty(key))){
           return fn(req, res);
       }
       else{
-          console.error('${type}:必要な引数が足りません')
+          console.error(type+':必要な引数が足りません')
           res.json({error:true,msg:'必要な引数が足りません'})
           
       }
@@ -63,7 +65,7 @@ function whocheck(fn,type) {
   return function(req, res) {
       let who=sql.findData(title,req.body.user)
       if(who==null){
-          console.error('${type}:そんなユーザーはいない')
+          console.error(type+'そんなユーザーはいない')
           res.json({error:true,msg:'そんなユーザーはいない'})
       }
       else{

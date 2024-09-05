@@ -7,7 +7,7 @@ const title = "posted"
 {
     let count = 0; // カウンタの初期値
   
-    function id() {
+    async function id() {
       count += 1; // カウンタを1増やす
       return count; // 現在のカウンタの値を返す
     };
@@ -53,22 +53,22 @@ res={errer:bool,msg:text}
 
 {//検索
     let requestType="get/search::"+title
-    function httpget(req,res){
+    async function httpget(req,res){
 
     }
     router.get("/",sql.keycheck(httpget,requestType,["q"]))
 }
 {//情報提示
     let requestType="get::"+title
-    function httpget(req,res){
-        sel=sql.findData(title,req.body.id)
+    async function httpget(req,res){
+        sel=await sql.findData(title,req.body.id)
         if(sel.error){
-            console.log("${requestType}:失敗")
+            console.log(requestType+"失敗")
             console.error(sel.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:sel.body})
         }
 
@@ -77,7 +77,7 @@ res={errer:bool,msg:text}
 }
 {//投稿
     let requestType="post::"+title
-    function httpget(req,res,who){
+    async function httpget(req,res,who){
         postid=id()
         body=req.body
         body.who=who
@@ -86,12 +86,12 @@ res={errer:bool,msg:text}
         body.id=postid
         sql.setData(title,body)
         if(selt.error){
-            console.log("${requestType}:プロフィール参照失敗")
+            console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:postid})
         }
     }
@@ -99,15 +99,15 @@ res={errer:bool,msg:text}
 }
 {//削除
     let requestType="delete::"+title
-    function httpdelete(req,res){
+    async function httpdelete(req,res){
         sel=delData(title,req.id)
         if(sel.error){
-            console.log("${requestType}:失敗")
+            console.log(requestType+"失敗")
             console.error(sel.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null})
         }
     }
@@ -115,15 +115,15 @@ res={errer:bool,msg:text}
 }
 {//編集
     let requestType="put::"+title
-    function httpput(req,res){
-        selt=sql.upDataData(personal,{who:req.id,updata:{description:req.body.description}})
+    async function httpput(req,res){
+        selt=await sql.upDataData(personal,{who:req.id,updata:{description:req.body.description}})
         if(selt.error){
-            console.log("${requestType}:プロフィール参照失敗")
+            console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:selt.body})
         }
 
@@ -132,15 +132,15 @@ res={errer:bool,msg:text}
 }
 {//いいね加算
     let requestType="put/good::"+title
-    function httpputgood(req,res){
-        selt=sql.upDataData(personal,{who:req.id,updata:{point:req.body.point}})
+    async function httpputgood(req,res){
+        selt=await sql.upDataData(personal,{who:req.id,updata:{point:req.body.point}})
         if(selt.error){
-            console.log("${requestType}:プロフィール参照失敗")
+            console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:selt.body})
         }
 

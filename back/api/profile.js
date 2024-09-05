@@ -20,15 +20,15 @@ res={errer:bool,msg:text}
 
 {//ページ編集
     let requestType="put/page::"+title
-    function httpputpage(req,res,who){
-        selt=sql.upDataData(personal,{who:who,updata:{description:req.body.description}})
+    async function httpputpage(req,res,who){
+        selt=await sql.upDataData(personal,{who:who,updata:{description:req.body.description}})
         if(selt.error){
-            console.log("${requestType}:プロフィール参照失敗")
+            console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:selt.body})
         }
 
@@ -37,15 +37,15 @@ res={errer:bool,msg:text}
 }
 {//ポイント加減算
     let requestType="put/point::"+title
-    function httpputpoint(req,res,who){
-        selt=sql.upDataData(personal,{who:who,updata:{point:req.body.point}})
+    async function httpputpoint(req,res,who){
+        selt=await sql.upDataData(personal,{who:who,updata:{point:req.body.point}})
         if(selt.error){
-            console.log("${requestType}:プロフィール参照失敗")
+            console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:selt.body})
         }
 
@@ -54,15 +54,15 @@ res={errer:bool,msg:text}
 }
 {//情報提示
     let requestType="get::"+title
-    function httpget(req,res,who){
-        selt=sql.findData(personal,who)
+    async function httpget(req,res,who){
+        selt=await sql.findData(personal,who)
         if(selt.error){
-            console.log("${requestType}:プロフィール参照失敗")
+            console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log("${requestType}:成功")
+            console.log(requestType+"成功")
             res.json({error:false,msg:null,body:selt.body})
         }
 

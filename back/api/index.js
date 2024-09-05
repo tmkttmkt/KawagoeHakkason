@@ -8,7 +8,9 @@ const PORT =5000;
 
 //ハードより。いろいろアクセスできるようにする
 app.use(cors());
+app.use(express.json());
 app.use(express.static('uploads'));
+app.use(express.urlencoded({ extended: true }));
 //APIインポート
 const personalAPI = require('./personal.js');
 const postedAPI = require('./posted.js');
