@@ -43,11 +43,11 @@ body={point:int}
 res={errer:bool,msg:text}
 ## 個人の情報
 /personal
-### ログイン
+###　登録
 post:/registration
 body={user:txt,pass:txt}
 res={errer:bool,msg:text}
-### 登録
+### ログイン
 post:/
 body={user:txt,pass:txt}
 res={errer:bool,msg:text}

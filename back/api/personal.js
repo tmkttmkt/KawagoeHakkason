@@ -14,11 +14,11 @@ const title = "personal"
 
 
 /*
-### ログイン
+### 登録
 post:/registration
 body={user:txt,pass:txt}
 res={error:bool,msg:text}
-### 登録
+### ログイン
 post:/
 body={user:txt,pass:txt}
 res={error:bool,msg:text}
