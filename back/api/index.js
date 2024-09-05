@@ -25,5 +25,8 @@ app.get('/', (req, res) => {
   res.json({t:"helloword"})
   });
 
+app.use((req, res,next) => {
+  res.status(404).send('ドドドォ404ドン!!そんなページはない!!\n多分');
+});
 //実行
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -61,7 +61,7 @@ res={error:bool,msg:text}
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            const flg =(sel.data === null)
+            let flg =(sel.data === null)
             if(flg){
                 if(Object.keys(sel.data).length==1){
                     res.json({result:flg,msg:null})

@@ -20,6 +20,14 @@ async function findData(table,num) {
           
 return sel
 }
+//データを検索
+async function findData(table,num) {
+    
+
+  const sel = await supabase.from(table).select("*");
+          
+return sel
+}
 async function delData(table,num) {
     
 

@@ -12,9 +12,17 @@ const title = "posted"
       return count; // 現在のカウンタの値を返す
     };
 }
-function photohoz(){
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+const upload = multer({ storage: storage });
 
-}
 const router = express.Router();
 /*
 ### 検索
@@ -70,9 +78,13 @@ res={errer:bool,msg:text}
 {//投稿
     let requestType="post::"+title
     function httpget(req,res,who){
-        photopath=photohoz(req.photo)
         postid=id()
-        selt=sql.findData(personal,who)
+        body=req.body
+        body.who=who
+        body.photo=photopath
+        body.where=new Date()
+        body.id=postid
+        sql.setData(title,body)
         if(selt.error){
             console.log("${requestType}:プロフィール参照失敗")
             console.error(selt.error)
@@ -80,15 +92,10 @@ res={errer:bool,msg:text}
         }
         else{
             console.log("${requestType}:成功")
-            body=req.body
-            body.who=who
-            body.photo=photopath
-            body.id=postid
-            sql.setData(title,body)
             res.json({error:false,msg:null,body:postid})
         }
     }
-    router.post("/",sql.keycheck(sql.whocheck(httpget,requestType),requestType,["photo","where","description","topic","who"]))
+    router.post("/", upload.single('photo'),sql.keycheck(sql.whocheck(httpget,requestType),requestType,["photo","where","description","topic","who"]))
 }
 {//削除
     let requestType="delete::"+title
@@ -109,6 +116,16 @@ res={errer:bool,msg:text}
 {//編集
     let requestType="put::"+title
     function httpput(req,res){
+        selt=sql.upDataData(personal,{who:req.id,updata:{description:req.body.description}})
+        if(selt.error){
+            console.log("${requestType}:プロフィール参照失敗")
+            console.error(selt.error)
+            res.json({error:true,msg:'なんでだろうねわかんない'})
+        }
+        else{
+            console.log("${requestType}:成功")
+            res.json({error:false,msg:null,body:selt.body})
+        }
 
     }
     router.put("/",sql.keycheck(httpput,requestType,["id"]))
@@ -116,6 +133,16 @@ res={errer:bool,msg:text}
 {//いいね加算
     let requestType="put/good::"+title
     function httpputgood(req,res){
+        selt=sql.upDataData(personal,{who:req.id,updata:{point:req.body.point}})
+        if(selt.error){
+            console.log("${requestType}:プロフィール参照失敗")
+            console.error(selt.error)
+            res.json({error:true,msg:'なんでだろうねわかんない'})
+        }
+        else{
+            console.log("${requestType}:成功")
+            res.json({error:false,msg:null,body:selt.body})
+        }
 
     }
     router.put("/",sql.keycheck(httpputgood,requestType,["id"]))
