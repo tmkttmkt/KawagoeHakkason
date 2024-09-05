@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import Header from './Header.svelte'
-=======
-
-import App from './App.svelte'
->>>>>>> backend
 
 // ... existing code ...
 /// <reference types="svelte" />
