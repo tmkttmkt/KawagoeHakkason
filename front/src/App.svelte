@@ -8,12 +8,8 @@
     };
 
     try {
-      const response = await fetch('http://localhost:3000/api/test', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      const response = await fetch('https://kawagoe-hakkason-mjg1-guhzm44xn-tmkts-projects.vercel.app/', {
+        method: 'GET',
       });
 
       if (response.ok) {
