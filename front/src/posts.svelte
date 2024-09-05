@@ -21,7 +21,7 @@
     align-items: center; /* 子要素を水平方向の中央に揃える */
     justify-content: center; /* 子要素を垂直方向の中央に揃える */
     min-height: 100vh; /* main要素の高さを画面全体（ビューポートの高さ）に設定 */
-    background-color:rgb(208, 252, 179);
+    background-color:rgb(255, 255, 255);
   }
 
   /* ボタンコンテナのスタイル設定 */
