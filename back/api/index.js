@@ -4,7 +4,7 @@ const cors = require('cors');
 
 //本体
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT =5000;
 
 //ハードより。いろいろアクセスできるようにする
 app.use(cors());
@@ -29,4 +29,4 @@ app.use((req, res,next) => {
   res.status(404).send('ドドドォ404ドン!!そんなページはない!!\n多分');
 });
 //実行
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running at http://0.0.0.0:${PORT}/`));
