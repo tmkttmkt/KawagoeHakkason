@@ -1,3 +1,58 @@
+<script>//getリクエスト
+  import { onMount } from 'svelte';
+  let data = null;
+  let loading = true;
+  let error = null;
+  onMount(async () => {
+    try {
+      const response = await fetch('https://api.example.com/data');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      data = await response.json();
+    } catch (err) {
+      error = err.message;
+    } finally {
+      loading = false;
+    }
+  });
+</script>
+{#if loading}
+  <p>Loading...</p>
+{:else if error}
+  <p>Error: {error}</p>
+{:else}
+  <pre>{JSON.stringify(data, null, 2)}</pre>
+{/if}
+
+
+<script>//post リクエスト
+  let postData = { name: 'John Doe' };
+  let responseMessage = '';
+
+  async function sendData() {
+    try {
+      const response = await fetch('https://api.example.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const result = await response.json();
+      responseMessage = result.message;
+    } catch (err) {
+      responseMessage = `Error: ${err.message}`;
+    }
+  }
+</script>
+<button on:click={sendData}>Send Data</button>
+<p>{responseMessage}</p>
+
+
 <main>
     <button on:click={() => window.location.href = '/post'}>
         <me>投稿する→</me></button>
