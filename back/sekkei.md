@@ -1,9 +1,11 @@
 # API
+見方
+リクエストの種類:リクエストの場所
 ## 投稿
 /posted
 ### 検索
 get:/search
-body={q:txt}
+body={q:txt:who:txt,time:date}
 res={errer:bool,msg:text,body:obj}
 ### 情報提示
 get:/
