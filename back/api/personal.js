@@ -79,7 +79,7 @@ function deluuser(obj){
         }
         else{
             let flg =(sel.data === null)
-            if(flg){
+            if(!flg){
                 if(Object.keys(sel.data).length==1){
                     res.json({result:flg,msg:null})
                     console.log(requestType+"ログインします")
@@ -109,7 +109,7 @@ function deluuser(obj){
         }
         else{
             const flg =(sel.data === null)
-            if(flg){
+            if(!flg){
                 if(Object.keys(obj).length==1){
                     res.json({result:flg,msg:null})
                     console.log(requestType+"削除します")
@@ -139,7 +139,7 @@ function deluuser(obj){
         }
         else{
             const flg =(sel.data === null)
-            if(flg){
+            if(!flg){
                 if(Object.keys(obj).length==1){
                     sel=await sql.upData(title,{who:req.body.user,updata:{nextpass:req.body["nextpass"]}})
                     if(sel.error){

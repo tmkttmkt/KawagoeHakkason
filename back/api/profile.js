@@ -53,7 +53,7 @@ res={errer:bool,msg:text}
     router.put('/point',sql.keycheck(sql.whocheck(httpputpoint,requestType),requestType,["user","point"]));
 }
 {//情報提示
-    let requestType="get::"+title
+    let requestType="post::get"+title
     async function httpget(req,res,who){
         selt=await sql.findData(personal,who)
         if(selt.error){
@@ -67,7 +67,7 @@ res={errer:bool,msg:text}
         }
 
     }
-    router.get('/',sql.keycheck(sql.whocheck(httpget,requestType),requestType,["user"]));
+    router.get('/post',sql.keycheck(sql.whocheck(httpget,requestType),requestType,["user"]));
 }
 
 module.exports = router;

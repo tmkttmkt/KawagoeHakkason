@@ -2,12 +2,13 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const sql = require('./supabql.js');
+const fs = require('fs');
 
 const title = "posted"
 {
     let count = 0; // カウンタの初期値
   
-    async function id() {
+    function id() {
       count += 1; // カウンタを1増やす
       return count; // 現在のカウンタの値を返す
     };
@@ -58,7 +59,7 @@ res={errer:bool,msg:text}
         num+=Math.random()*100
         return num
     }
-    let requestType="get/search::"+title
+    let requestType="post/search::"+title
     async function httpget(req,res){
         sel=await sql.getData(title,req.body.id)
         if(sel.error){
@@ -77,10 +78,10 @@ res={errer:bool,msg:text}
         }
 
     }
-    router.get("/",sql.keycheck(httpget,requestType,["q"]))
+    router.post("/search",sql.keycheck(httpget,requestType,["q"]))
 }
 {//情報提示
-    let requestType="get::"+title
+    let requestType="post::get"+title
     async function httpget(req,res){
         sel=await sql.findData(title,req.body.id)
         if(sel.error){
@@ -90,11 +91,18 @@ res={errer:bool,msg:text}
         }
         else{
             console.log(requestType+"成功")
-            res.json({error:false,msg:null,body:sel.body})
+            console.log(sel.data)
+            const filePath = path.join(__dirname, 'uploads', sel.data[0].photo);
+              if (fs.existsSync(filePath)) {
+                res.sendFile(filePath);
+                res.json({error:false,msg:null,body:sel.data[0]})
+              } else {
+                res.status(404).json({ error: '画像が見つかりません' });
+              }
         }
 
     }
-    router.get("/",sql.keycheck(httpget,requestType,["id"]))
+    router.post("/get",sql.keycheck(httpget,requestType,["id"]))
 }
 {//投稿
     let requestType="post::"+title
@@ -109,11 +117,13 @@ res={errer:bool,msg:text}
             body=req.body
             body.who=who
             body.photo=req.file.filename
-            body.where=new Date()
+            body.when=new Date()
             body.id=postid
-            sql.setData(title,body)
+            body.good=0
+            console.log(body)
+            selt=await sql.setData(title,body)
             if(selt.error){
-                console.log(requestType+"プロフィール参照失敗")
+                console.log(requestType+"投稿失敗")
                 console.error(selt.error)
                 res.json({error:true,msg:'なんでだろうねわかんない'})
             }
@@ -124,7 +134,7 @@ res={errer:bool,msg:text}
                 
         }
     }
-    router.post("/", upload.single('photo'),sql.keycheck(sql.whocheck(httpget,requestType),requestType,["photo","where","description","topic","who"]))
+    router.post("/", upload.single('photo'),sql.keycheck(sql.whocheck(httpget,requestType),requestType,["where","description","topic","who"]))
 }
 {//削除
     let requestType="delete::"+title
@@ -162,7 +172,7 @@ res={errer:bool,msg:text}
 {//いいね加算
     let requestType="put/good::"+title
     async function httpputgood(req,res){
-        selt=await sql.upDataData(personal,{who:req.id,updata:{point:req.body.point}})
+        selt=await sql.upDataData(personal,{who:req.id,updata:{good:req.body.good}})
         if(selt.error){
             console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)

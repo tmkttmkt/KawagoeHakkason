@@ -4,11 +4,11 @@
 ## 投稿
 /posted
 ### 検索
-get:/search
+post:/search
 body={q:txt:who:txt,time:date,num:int}
 res={errer:bool,msg:text,body:obj}
 ### 情報提示
-get:/
+post:/get
 body={id:txt}
 res={errer:bool,msg:text,body:obj}
 ### 投稿
@@ -34,7 +34,7 @@ put:/page
 body={user:txt,description:txt}
 res={errer:bool,msg:text}
 ### 情報提示
-get:/
+post:/get
 body={user:txt}
 res={errer:bool,msg:text,body:obj}
 ### ポイント加減算
@@ -64,7 +64,7 @@ res={errer:bool,msg:text}
 in::ユーザー名(id),パスワード
 out::ユーザー名(id),パスワード,プロフィール.id
 ## 投稿
-in::id,写真,位置,説明,お題,いいね,プロフィール
+in::id,写真,位置,説明,お題,いいね,個人の情報
 out::id,写真パス,位置,説明,お題,いいね,いつ,プロフィール.id
 ## プロフィール
 in::id,名前,自己紹介,ポイント

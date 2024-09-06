@@ -20,14 +20,7 @@ async function findData(table,num) {
           
 return sel
 }
-//データを検索
-async function findData(table,num) {
-    
 
-  const sel = await supabase.from(table).select("*");
-          
-return sel
-}
 async function delData(table,num) {
     
 
@@ -51,7 +44,9 @@ async function upData(table,date) {
 function keycheck(fn,type,filterKeys) {
   return function(req, res) {
       console.log(req.body)
-      if(filterKeys.every(key => req.body.hasOwnProperty(key))){
+      const data = { ...req.body };
+      if(filterKeys.every(key => data.hasOwnProperty(key))){
+        req.body=data
           return fn(req, res);
       }
       else{
@@ -62,16 +57,28 @@ function keycheck(fn,type,filterKeys) {
   };
 }
 function whocheck(fn,type) {
-  return function(req, res) {
-      let who=sql.findData(title,req.body.user)
+  return async function(req, res) {
+      let who=await findData("personal",req.body.who)
       if(who==null){
           console.error(type+'そんなユーザーはいない')
           res.json({error:true,msg:'そんなユーザーはいない'})
       }
       else{
-          return fn(req, res,who);
-          
-      }
+        let flg =(who.data === null)
+        if(!flg){
+            if(Object.keys(who.data).length==1){
+                return fn(req, res,who.data[0].who);
+            }
+            else{
+                console.log(type+"主キーがおかしいや")
+                res.json({error:false,msg:"主キーがおかしいや"})
+            }
+        }
+        else{
+            console.log(type+"主キーが見つからなかった")
+            res.json({result:flg,msg:"主キーが見つからなかった"})
+        }
+    }
   };
 }
 module.exports = {
