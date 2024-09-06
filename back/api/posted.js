@@ -52,8 +52,29 @@ res={errer:bool,msg:text}
 */
 
 {//検索
+    function objsort(ob){
+        num=100
+        num+=ob.good
+        num+=Math.random()*100
+        return num
+    }
     let requestType="get/search::"+title
     async function httpget(req,res){
+        sel=await sql.getData(title,req.body.id)
+        if(sel.error){
+            console.log(requestType+"失敗")
+            console.error(sel.error)
+            res.json({error:true,msg:'なんでだろうねわかんない'})
+        }
+        else{
+            let body=sel.body
+            body.sort((a, b) => objsort(a) - objsort(b));
+            if(body.length>req.body.num){
+                body= body.slice(0,req.body.num);
+            }
+            console.log(requestType+"成功")
+            res.json({error:false,msg:null,body:sel.body})
+        }
 
     }
     router.get("/",sql.keycheck(httpget,requestType,["q"]))
@@ -78,21 +99,29 @@ res={errer:bool,msg:text}
 {//投稿
     let requestType="post::"+title
     async function httpget(req,res,who){
-        postid=id()
-        body=req.body
-        body.who=who
-        body.photo=photopath
-        body.where=new Date()
-        body.id=postid
-        sql.setData(title,body)
-        if(selt.error){
-            console.log(requestType+"プロフィール参照失敗")
-            console.error(selt.error)
-            res.json({error:true,msg:'なんでだろうねわかんない'})
+        
+        if(!req.file){
+            res.json({error:true,msg:'ファイルをアップロードできませんでした'});
+  
         }
         else{
-            console.log(requestType+"成功")
-            res.json({error:false,msg:null,body:postid})
+            postid=id()
+            body=req.body
+            body.who=who
+            body.photo=req.file.filename
+            body.where=new Date()
+            body.id=postid
+            sql.setData(title,body)
+            if(selt.error){
+                console.log(requestType+"プロフィール参照失敗")
+                console.error(selt.error)
+                res.json({error:true,msg:'なんでだろうねわかんない'})
+            }
+            else{
+                console.log(requestType+"成功")
+                res.json({error:false,msg:null,body:postid})
+            }
+                
         }
     }
     router.post("/", upload.single('photo'),sql.keycheck(sql.whocheck(httpget,requestType),requestType,["photo","where","description","topic","who"]))

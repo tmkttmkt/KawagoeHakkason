@@ -5,7 +5,7 @@
 /posted
 ### 検索
 get:/search
-body={q:txt:who:txt,time:date}
+body={q:txt:who:txt,time:date,num:int}
 res={errer:bool,msg:text,body:obj}
 ### 情報提示
 get:/
