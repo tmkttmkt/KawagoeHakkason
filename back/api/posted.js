@@ -155,7 +155,7 @@ res={errer:bool,msg:text}
 {//編集
     let requestType="put::"+title
     async function httpput(req,res){
-        selt=await sql.upDataData(personal,{who:req.id,updata:{description:req.body.description}})
+        selt=await sql.upData(personal,{who:req.id,updata:{description:req.body.description}})
         if(selt.error){
             console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
@@ -172,15 +172,24 @@ res={errer:bool,msg:text}
 {//いいね加算
     let requestType="put/good::"+title
     async function httpputgood(req,res){
-        selt=await sql.upDataData(personal,{who:req.id,updata:{good:req.body.good}})
+        selt=await sql.findData(personal,req.id)
         if(selt.error){
             console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            console.log(requestType+"成功")
-            res.json({error:false,msg:null,body:selt.body})
+            seltt=await sql.upData(personal,{who:req.id,updata:{good:req.body.good+seltt.data.good}})
+            if(selt.error){
+                console.log(requestType+"足せなかったぜ")
+                console.error(selt.error)
+                res.json({error:true,msg:'なんでだろうねわかんない'})
+            }
+            else{
+                console.log(requestType+"成功")
+                res.json({error:false,msg:null,body:selt.body})
+
+            }
         }
 
     }
