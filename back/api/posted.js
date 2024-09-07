@@ -6,11 +6,29 @@ const fs = require('fs');
 
 const title = "posted"
 {
-    let count = 0; // カウンタの初期値
-  
+    let count;
+    async function processData() {
+        try {
+            const body = await sql.getData(title); // データベースからデータを非同期に取得
+
+            if (body.error) {
+                console.log("カウント失敗");
+                console.error(body.error);
+                count = 0; // エラーが発生した場合のカウンタの初期値
+            } else {
+                count = body.data.length; // データの長さをカウント
+            }
+
+        } catch (error) {
+            console.error("エラー:", error);
+            count = 0;
+        }
+        console.log(title, count);
+    }
+    processData()
     function id() {
-      count += 1; // カウンタを1増やす
-      return count; // 現在のカウンタの値を返す
+        count += 1; // カウンタを1増やす
+        return count; // 現在のカウンタの値を返す
     };
 }
 const storage = multer.diskStorage({
@@ -61,7 +79,7 @@ res={errer:bool,msg:text}
     }
     let requestType="post/search::"+title
     async function httpget(req,res){
-        sel=await sql.getData(title,req.body.id)
+        sel=await sql.getData(title)
         if(sel.error){
             console.log(requestType+"失敗")
             console.error(sel.error)

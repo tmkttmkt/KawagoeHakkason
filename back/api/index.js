@@ -33,5 +33,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use((req, res,next) => {
   res.status(404).json({error:true,msg:'ドドドォ404ドン!!そんなページはない!!\n多分'});
 });
+
+
 //実行
-app.listen(PORT, () => console.log(`Server running at http://0.0.0.0:${PORT}/`));
+app.listen(PORT, () => console.log(`Server running at http://0.0.0.0:${PORT}/`),);
