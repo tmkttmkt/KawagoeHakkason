@@ -36,7 +36,7 @@ async function setData(table,date) {
 return sel
 }
 
-async function upData(table,date) {     
+async function upData(table,date) {    
   const sel = await supabase.from(table).update(date.updata).eq('id',date.who).select()
   return sel
             

@@ -5,12 +5,16 @@
 /posted
 ### 検索
 post:/search
-body={q:txt:who:txt,time:date,num:int}
+body=Null/理想/{q:txt:who:txt,time:date,num:int}
 res={errer:bool,msg:text,body:obj}
 ### 情報提示
 post:/get
 body={id:txt}
 res={errer:bool,msg:text,body:obj}
+### 写真取得
+post:/photo
+body={id:txt}
+res.sendFile(filePath)
 ### 投稿
 post:/
 body={photo:??,where:txt,description:txt,topic:txt,who:txt}

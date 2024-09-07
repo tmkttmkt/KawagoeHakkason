@@ -68,17 +68,19 @@ res={errer:bool,msg:text}
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            let body=sel.body
+            let body=sel.data
+            console.log(body)
             body.sort((a, b) => objsort(a) - objsort(b));
             if(body.length>req.body.num){
                 body= body.slice(0,req.body.num);
             }
             console.log(requestType+"成功")
-            res.json({error:false,msg:null,body:sel.body})
+            console.log(body)
+            res.json({error:false,msg:null,body:body})
         }
 
     }
-    router.post("/search",sql.keycheck(httpget,requestType,["q"]))
+    router.post("/search",httpget)
 }
 {//情報提示
     let requestType="post::get"+title
@@ -91,14 +93,18 @@ res={errer:bool,msg:text}
         }
         else{
             console.log(requestType+"成功")
-            console.log(sel.data)
-            const filePath = path.join(__dirname, 'uploads', sel.data[0].photo);
-              if (fs.existsSync(filePath)) {
-                res.sendFile(filePath);
-                res.json({error:false,msg:null,body:sel.data[0]})
-              } else {
-                res.status(404).json({ error: '画像が見つかりません' });
-              }
+            const filePath = path.join(__dirname,  '..','uploads', sel.data[0].photo);
+            console.log(filePath)
+            fs.readFile(filePath,(err, fileBuffer) => {
+                if (err) {
+                    console.error("ファイル読み込みエラー:", err);
+                    res.status(500).json({ error: "ファイルの読み込みに失敗しました" });
+                    return;
+                }
+        
+                const fileBase64 = fileBuffer.toString('base64');
+                res.json({ success: true, data: fileBase64 ,error:false});
+            });
         }
 
     }
@@ -155,7 +161,7 @@ res={errer:bool,msg:text}
 {//編集
     let requestType="put::"+title
     async function httpput(req,res){
-        selt=await sql.upData(personal,{who:req.id,updata:{description:req.body.description}})
+        selt=await sql.upData(title,{who:req.id,updata:{description:req.body.description}})
         if(selt.error){
             console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
@@ -172,27 +178,30 @@ res={errer:bool,msg:text}
 {//いいね加算
     let requestType="put/good::"+title
     async function httpputgood(req,res){
-        selt=await sql.findData(personal,req.id)
+        selt=await sql.findData(title,req.body.id)
+        
         if(selt.error){
             console.log(requestType+"プロフィール参照失敗")
             console.error(selt.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            seltt=await sql.upData(personal,{who:req.id,updata:{good:req.body.good+seltt.data.good}})
-            if(selt.error){
+            seltt=await sql.upData(title,{who:req.body.id,updata:{good:req.body.good+selt.data[0].good}})
+            if(seltt.error){
                 console.log(requestType+"足せなかったぜ")
-                console.error(selt.error)
+                console.error(seltt.error)
                 res.json({error:true,msg:'なんでだろうねわかんない'})
             }
             else{
                 console.log(requestType+"成功")
+                se=await sql.findData(title,req.body.id)
+                console.log(se.data)
                 res.json({error:false,msg:null,body:selt.body})
 
             }
         }
 
     }
-    router.put("/",sql.keycheck(httpputgood,requestType,["id"]))
+    router.put("/good",sql.keycheck(httpputgood,requestType,["id"]))
 }
 module.exports = router;
