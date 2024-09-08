@@ -1,9 +1,18 @@
 <script>
   import { Link } from "svelte-routing";
-
+  import {createPost} from "./App.ts";
   // 投稿ボタンを押した際にダイアログボックスを表示
   function handleSubmit() {
-    alert("投稿が完了しました！");
+    let flg1=createPost()
+    let flg2=createPost()
+    let flg3=createPost()
+    if(flg1&&flg2&&flg3){
+      alert("投稿が完了しました！");
+    }
+    else{
+      alert("投稿が失敗しました！");
+
+    }
   }
 </script>
 

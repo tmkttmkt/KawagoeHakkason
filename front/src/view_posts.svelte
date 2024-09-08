@@ -1,3 +1,13 @@
+<script>
+  import { onMount } from 'svelte';
+  import {fetchPhotos,searchPhotos,likePhoto} from "./App.ts";
+  // コンポーネントがマウントされたときに実行
+  onMount(async() => {
+    let body=await searchPhotos();
+    console.log(body)
+
+  });
+</script>
 <main>
   <div class="header">
     <a class="action-button" href="/">＜Homeに戻る</a>
@@ -12,7 +22,7 @@
     </div>
     <div class="iine-container">
       <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
-      <button class="iine-button" >いいね！</button>
+      <button on:click={() => likePhoto(photo)} class="iine-button" >いいね！</button>
     </div>
 
     <div class="photo-view-container">
