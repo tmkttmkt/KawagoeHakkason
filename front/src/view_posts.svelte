@@ -1,45 +1,54 @@
+<script>
+  let liked = [false, false, false];
+
+  // いいねボタンをクリックしたときに色を入れ替える関数
+  function toggleLike(index) {
+    liked[index] = !liked[index]; // true/falseを切り替える
+  }
+</script>
+
 <main>
   <div class="header">
     <a class="action-button" href="/">＜Homeに戻る</a>
   </div>
   <h1 class="title">埼玉ラリー投稿画面</h1>
 
-    <div class="photo-view-container">
-      <p class="view-instruction">ユーザー名</p>
-      <div class="photo-view-area">
-        <!-- 写真が表示されるための空のエリア -->
+  <!-- 1つ目の写真表示エリアといいねボタン -->
+  <div class="photo-view-container">
+    <p class="view-instruction">ユーザー名</p>
+    <div class="photo-view-area">
+      <!-- 写真が表示されるための空のエリア -->
+      <div class="iine-container">
+        <!-- クリックイベントで toggleLike 関数を呼び出し、色を変更 -->
+        <button class="iine-button" on:click={() => toggleLike(0)} style="background-color: {liked[0] ? '#ff8dec' : '#ccc'};">❤️</button>
       </div>
     </div>
-    <div class="iine-container">
-      <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
-      <button class="iine-button" >いいね！</button>
-    </div>
+  </div>
 
-    <div class="photo-view-container">
-      <p class="view-instruction">ユーザー名</p>
-      <div class="photo-view-area">
-        <!-- 写真が表示されるための空のエリア -->
+  <!-- 2つ目の写真表示エリアといいねボタン -->
+  <div class="photo-view-container">
+    <p class="view-instruction">ユーザー名</p>
+    <div class="photo-view-area">
+      <!-- 写真が表示されるための空のエリア -->
+      <div class="iine-container">
+        <button class="iine-button" on:click={() => toggleLike(1)} style="background-color: {liked[1] ? '#ff8dec' : '#ccc'};">❤️</button>
       </div>
     </div>
-    <div class="iine-container">
-      <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
-      <button class="iine-button" >いいね！</button>
-    </div>
+  </div>
 
-    <div class="photo-view-container">
-      <p class="view-instruction">ユーザー名</p>
-      <div class="photo-view-area">
-        <!-- 写真が表示されるための空のエリア -->
+  <!-- 3つ目の写真表示エリアといいねボタン -->
+  <div class="photo-view-container">
+    <p class="view-instruction">ユーザー名</p>
+    <div class="photo-view-area">
+      <!-- 写真が表示されるための空のエリア -->
+      <div class="iine-container">
+        <button class="iine-button" on:click={() => toggleLike(2)} style="background-color: {liked[2] ? '#ff8dec' : '#ccc'};">❤️</button>
       </div>
     </div>
-    <div class="iine-container">
-      <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
-      <button class="iine-button" >いいね！</button>
-    </div>
+  </div>
 </main>
 
 <style>
-  /* main要素の基本レイアウト設定 */
   main {
     text-align: center;
     margin: 0;
@@ -51,7 +60,6 @@
     position: relative;
   }
 
-  /* ヘッダーのスタイル設定 */
   .header {
     position: absolute;
     top: 0;
@@ -60,7 +68,6 @@
     box-sizing: border-box;
   }
 
-  /* ボタンのスタイル設定 */
   .action-button {
     display: inline-block;
     padding: 10px;
@@ -91,6 +98,7 @@
     margin-top: 20px;
     text-align: center;
     width: 80%;
+    position: relative; /* 相対位置を指定 */
   }
 
   .view-instruction {
@@ -108,21 +116,32 @@
     align-items: center;
     justify-content: center;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative; /* 相対位置 */
   }
 
   .iine-container {
-    
+    position: absolute;
+    right: 20px; /* 右端に配置 */
+    bottom: 20px;
   }
 
   .iine-button {
-    padding: 15px 30px;
-    font-size: 1.2em;
+    width: 50px;
+    height: 50px;
     border: none;
-    background-color: #ff8dec;
+    background-color: #ccc; /* 初期のグレーカラー */
     color: white;
-    border-radius: 5px;
+    border-radius: 50%; /* ボタンを円形にする */
+    font-size: 30px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .iine-button:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   }
 </style>
