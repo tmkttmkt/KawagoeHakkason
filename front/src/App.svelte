@@ -1,38 +1,10 @@
 <script lang="ts">
-/*  // 登録リクエストを送信する関数
-  async function sendRequest1() {
-    const data = {
-      name: 'John Doe',
-      pass: 'aaasss'
-    };
-    let responseMessage = '';
-
-    try {
-      const response = await fetch('https://kawagoe-hakkason-mjg1.vercel.app/personal/registration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        if (result.error) {
-          responseMessage = result.msg;
-        } else {
-          responseMessage = 'おｋ';
-        }
-      } else {
-        responseMessage = 'リクエストが失敗しました';
-      }
-    } catch (error) {
-      responseMessage = `エラー: ${error.message}`;
-    }
-  }*/
-
   // 投稿するための変数
   import { onMount } from 'svelte';
+
+  //情報確認のための変数
+let successMsg: string = "";
+let errorMsg: string = "";
 
 // 投稿するための変数
 let photo: File | null = null;
@@ -40,8 +12,6 @@ let where: string = "";
 let description: string = "";
 let topic: string = "";
 let who: string = "John Doe";
-let successMsg: string = "";
-let errorMsg: string = "";
 
 // 投稿を作成する関数
 async function createPost() {
@@ -69,19 +39,19 @@ async function createPost() {
 }
 let photostring
 // サーバーから写真取得
-let photos: Array<{ url: string; description: string; likes: number }> = [];
+let photos: Array<{ id:number; description: string; likes: number ;photostring:string}> = [];
 let error: string | null = null;
 
 
-// サーバーから写真を取得する関数
-async function fetchPhotos() {
+// サーバーから写真取得する関数
+async function fetchPhotos(id:number) {
   try {
     const response = await fetch('http://localhost:5000/posted/get',{// ここをサーバーのAPIエンドポイントに置き換える
     method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id:2 }), // photoのURLやIDを送信
+      body: JSON.stringify({ id:id }), // photoのURLやIDを送信
     });
     if (response.ok) {      
       const data = await response.json();  
@@ -89,9 +59,9 @@ async function fetchPhotos() {
             errorMsg = data.msg;
         } else {
             const base64Image = data.data;
-            error=base64Image
             photostring = `data:image/jpeg;base64,${base64Image}`; // Base64データを表示可能な形式に変換
-        }
+            return `data:image/jpeg;base64,${base64Image}`
+          }
     } else {
       error = "Failed to load photos";
     }
@@ -99,6 +69,7 @@ async function fetchPhotos() {
     error = err.message;
   }
 }
+// サーバーから投稿取得する関数
 async function searchPhotos() {
   try {
     const response = await fetch('http://localhost:5000/posted/search',{// ここをサーバーのAPIエンドポイントに置き換える
@@ -109,8 +80,13 @@ async function searchPhotos() {
       body: JSON.stringify({ q:"",num:3 }), // photoのURLやIDを送信
     });
     if (response.ok) {
-      let iddata = await response.json();
-      iddata.map(num => num.id);
+      let data = await response.json();
+      let ids=data.body
+      ids.forEach(async function(post) {
+        let base64Imagest=await fetchPhotos(post.id)
+        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest}]
+
+      });
     } else {
       error = "Failed to load photos";
     }
@@ -118,7 +94,18 @@ async function searchPhotos() {
     error = err.message;
   }
 }
-async function likePhoto(photo: { url: string; description: string; likes: number }) {
+
+
+// いいねボタンが押されたときの処理
+async function likePhoto(photo: { id:number; description: string; likes: number ,photostring:string}) {
+  const likedPhotos = JSON.parse(localStorage.getItem('likedPhotos') || '[]');
+    // すでにいいねを押していた場合は何もしない
+  if (likedPhotos.includes(photo.id)) {
+      successMsg="いっってないが？？？"
+    alert("You have already liked this post.");
+    return;
+  }
+
   try {
     photo.likes += 1; // 画面上で即座に反映させる
 
@@ -139,15 +126,28 @@ async function likePhoto(photo: { url: string; description: string; likes: numbe
     if (data.error) {
           errorMsg = data.msg;
     }
+    else{
+      successMsg="いったが？？？"
+    // 成功したらローカルストレージに保存
+    likedPhotos.push(photo.id);
+    localStorage.setItem('likedPhotos', JSON.stringify(likedPhotos));
+    }
   } catch (err) {
     console.error(err);
     photo.likes -= 1; // エラーが発生したら元に戻す
   }
 }
+
 // コンポーネントがマウントされたときに実行
 onMount(() => {
-  fetchPhotos();
+  searchPhotos();
 });
+
+function printph(){
+  
+  console.log(photos);
+  console.log(photos.length);
+}
 </script>
 
 <!-- postフォームの作成 -->
@@ -162,14 +162,9 @@ onMount(() => {
 <button on:click={searchPhotos}>
   クリッffhdrfdrト
 </button>
-<button on:click={likePhoto}>
-  クリックしてカウント
-</button>
-<button on:click={fetchPhotos}>
-  クリッfト
-</button>
-<img src={photostring} alt="Image from Base64" />
 
+
+<main>
 {#if successMsg}
 <p>{successMsg}</p>
 {/if}
@@ -178,27 +173,21 @@ onMount(() => {
 <p>{errorMsg}</p>
 {/if}
 
-<main>
-{#if error}
-  <p>{error}</p>
-{:else if photos.length === 0}
-  <p>Loading photos...</p>
-{:else}
-  <div class="photo-gallery">
-    {#each photos as photo}
-      <div class="photo-item">
-        <img src={photo.url} alt={photo.description} />
-        <p>{photo.description}</p>
-        <div class="like-section">
-          <button on:click={() => likePhoto(photo)}>👍 Like</button>
-          <span>{photo.likes} Likes</span>
-        </div>
-      </div>
-    {/each}
-  </div>
-{/if}
-</main>
 
+<p>{photos.length}</p>
+<div class="photo-gallery">
+  {#each photos as photo}
+    <div class="photo-item">
+      <img src={photo.photostring} alt="Image from Base64"/>
+      <p>説明：{photo.description} </p>
+      <div class="like-section">
+        <button on:click={() => likePhoto(photo)}>👍 Like</button>
+        <span>{photo.likes} Likes</span>
+      </div>
+    </div>
+  {/each}
+</div>
+</main>
 <style>
 .photo-gallery {
   display: grid;
@@ -275,7 +264,7 @@ button:hover {
   }
 }
 </style>
-/*<!-- 登録と参照のボタン
+<!-- 登録と参照のボタン
 <button on:click="sendRequest1()">登録</button>
 <button on:click="sendRequest2()">参照</button>
-<p>{responseMessage}</p>-->*/
+<p>{responseMessage}</p>-->
