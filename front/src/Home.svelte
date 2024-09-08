@@ -3,100 +3,137 @@
 </script>
 
 <main>
-  <h1 class="shadow">埼玉ラリー</h1>
   <!-- 画像を中央に配置するためのコンテナ -->
   <div class="image-container">
+    <h1 class="shadow">埼玉ラリー</h1>
     <img src="./src/IMG_0919.jpg" alt="埼玉ラリーの画像" class="main-image">
   </div>
+  <!-- 画像の下に「埼玉ラリーって何？」のタイトルを配置 -->
+  <h2 class="shadow below-image">埼玉ラリーって何？</h2>
+  <!-- 本文を追加 -->
+  <p class="description">
+    埼玉ラリーとは、埼玉県の3つの異なる地域からお題を1つ選び、お題に沿った写真を投稿することで抽選で景品が当たります。埼玉県の観光地の写真を集めて投稿しよう!!
+  </p>
   <!-- ボタンを縦に並べて中央に配置するためのコンテナ -->
-  <h2 class="shadow">埼玉ラリーって何？</h2>
   <div class="button-container">
-    <Link to="/post">投稿する→</Link>
-    <Link to="/view_posts">ほかの人の投稿を見る→</Link>
+    <a class="action-button" href="/post">投稿する→</a>
+    <a class="action-button" href="/view_posts">ほかの人の投稿を見る→</a>
   </div>
 </main>
 
 <style>
   /* main要素の基本レイアウト設定 */
   main {
-    text-align: center; /* テキストを中央に揃える */
-    /*padding: 1em; /* コンテンツ周囲に余白を追加 写真を上にするためいったんコメントアウト*/
-    margin: 0; /* 要素の外側の余白をなくす */
-    max-width: 240px; /* main要素の最大幅を240pxに制限 */
-
-    /* Flexboxレイアウトの設定 */
-    display: flex; /* Flexboxレイアウトを使用する */
-    flex-direction: column; /* 子要素を縦方向に並べる */
-    align-items: center; /* 子要素を水平方向の中央に揃える */
-    justify-content: center; /* 子要素を垂直方向の中央に揃える */
-    min-height: 100vh; /* main要素の高さを画面全体（ビューポートの高さ）に設定 */
+    text-align: center; 
+    margin: 0; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh; 
+    background-color: #f0f0f0;
+    padding: 0; 
   }
 
-  /*h1の文字の縁取り設定(ぼやけた感じ)*/
-  .shadow{
+  /* h1の文字の縁取り設定 */
+  .shadow {
     text-shadow:
-            3px 3px 3px #000, -3px -3px 3px #000,
-           -3px 3px 3px #000,  3px -3px 3px #000,
-            3px 0px 3px #000, -3px -0px 3px #000,
-            0px 3px 3px #000,  0px -3px 3px #000;
+      3px 3px 3px #000, -3px -3px 3px #000,
+      -3px 3px 3px #000,  3px -3px 3px #000,
+      3px 0px 3px #000, -3px 0px 3px #000,
+      0px 3px 3px #000,  0px -3px 3px #000;
     margin: 0;
   }
 
-  /* h1要素（タイトル）のスタイル設定 */
-  h1 {
-    position: absolute; /* 画面内の特定の位置に要素を配置するための絶対配置 */
-    top: 0; /* 画面の上部に配置 */
-    left: 50%; /* 画面の横幅の50%の位置に配置 */
-    transform: translateX(-50%); /* 左端基準の配置を中央基準に補正 */
-    font-size: 50px; /* フォントサイズを50pxに設定 */
-    color: #e7dede; /* テキストカラーを濃いグレーに設定 */
-    margin: 0; /* h1要素の外側の余白をなくす */
-    padding: 20px 0; /* 上下に20pxの内側余白を追加 */
-  }
-
-  /* h2要素（タイトル）のスタイル設定 */
-  h2 {
-    position: absolute; /* 画面内の特定の位置に要素を配置するための絶対配置 */
-    top: 0; /* 画面の上部に配置 */
-    left: 50%; /* 画面の横幅の50%の位置に配置 */
-    transform: translateX(-50%); /* 左端基準の配置を中央基準に補正 */
-    font-size: 20px; /* フォントサイズを0pxに設定 */
-    color: #e7dede; /* テキストカラーを濃いグレーに設定 */
-    margin: 0; /* h1要素の外側の余白をなくす */
-    padding: 20px 0; /* 上下に20pxの内側余白を追加 */
-  }
-
-  /* 画像コンテナのスタイル設定 */
+  /* h1を画像の上に重ねるスタイル設定 */
   .image-container {
-    display: flex; /* Flexboxレイアウトを使用 */
-    justify-content: center; /* コンテナ内の画像を中央に揃える */
-    flex-grow: 1; /* コンテナが可能な限り縦に伸びるように設定 */
+    position: relative; 
+    width: 100vw;
+    max-height: 50vh; 
+    overflow: hidden;
+  }
+
+  h1 {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-size: 50px;
+    color: #fff;
+    z-index: 1;
   }
 
   /* 画像のスタイル設定 */
   .main-image {
-    width: 100vw; /* 画像の幅をビューポートの幅全体に設定 */
-    height: auto; /* 画像の高さを自動調整し、アスペクト比を維持 */
-    max-height: 50vh; /* 画像の高さがビューポートの高さの50%を超えないように設定 */
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+  }
+
+  /* h2要素（タイトル）のスタイル設定 */
+  h2.below-image {
+    font-size: 20px;
+    color: #e7dede; 
+    margin: 10px 0;
+  }
+
+  /* 本文（説明文）のスタイル設定 */
+  .description {
+    font-size: 18px;
+    color: #333;
+    margin: 20px;
+    line-height: 1.6;
   }
 
   /* ボタンコンテナのスタイル設定 */
   .button-container {
-    display: flex; /* Flexboxレイアウトを使用 */
-    flex-direction: column; /* ボタンを縦方向に並べる */
-    align-items: center; /* ボタンを中央に揃える */
-    width: 100%; /* コンテナの幅をビューポートの幅全体に設定 */
-    padding: 10px 0; /* 上下に10pxの余白を追加 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; 
+    padding: 10px 0;
   }
 
   /* ボタンのスタイル設定 */
   .action-button {
-    width: 80%; /* ボタンの幅をビューポート幅の80%に設定 */
-    padding: 10px; /* ボタン内のテキストに対して10pxの内側余白を追加 */
-    font-size: 20px; /* フォントサイズを20pxに設定 */
-    border: 1px solid #333; /* ボタンに濃いグレーの境界線を追加 */
-    background-color: #f0f0f0; /* ボタンの背景色を薄いグレーに設定 */
-    color: #333; /* ボタンのテキストカラーを濃いグレーに設定 */
-    margin: 5px 0; /* ボタン間に5pxの上下の外側余白を追加 */
+    display: inline-block;
+    width: auto;
+    min-width: 200px;
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid #333;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+    transition: background-color 0.3s, box-shadow 0.3s; 
+  }
+
+  /* ボタンをホバーした際のスタイル */
+  .action-button:hover {
+    background-color: #ddd; 
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* メディアクエリ（スマホ対応） */
+  @media screen and (max-width: 480px) {
+    h1 {
+      font-size: 30px;
+    }
+
+    h2.below-image {
+      font-size: 16px;
+    }
+
+    .description {
+      font-size: 14px; 
+    }
+
+    .main-image {
+      max-height: 30vh; 
+    }
   }
 </style>
