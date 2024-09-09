@@ -1,22 +1,38 @@
 <script>
   import { onMount } from 'svelte';
-  import {fetchPhotos,searchPhotos,likePhoto} from "./App.ts";
+  import {searchPhotos,likePhoto} from "./App.ts";
+  let body=[]
   // コンポーネントがマウントされたときに実行
   onMount(async() => {
-    let body=await searchPhotos();
+    body=await searchPhotos();
     console.log(body)
-
+    /*id: 7,
+    photo: '1725859481255.png',
+    where: '川越市',
+    description: '画像に関する説明を入力',
+    good: 0,
+    who: 'user',
+    topic: 'option1',
+    when: '2024-09-09T05:24:41.262'*/
   });
 </script>
 <main>
   <div class="header">
     <a class="action-button" href="/">＜Homeに戻る</a>
   </div>
-  <h1 class="title">埼玉ラリー投稿画面</h1>
+  <h1 class="title">埼玉ラリー投稿たちの画面</h1>
 
+  {#each body as photo}
     <div class="photo-view-container">
-      <p class="view-instruction">ユーザー名</p>
+      <p class="view-instruction">ユーザー名:{photo.who}</p>
+      <p class="view-instruction">場所:{photo.where}</p>
+      <p class="view-instruction">説明:{photo.description}</p>
+      <p class="view-instruction">お題目:{photo.topic}</p>
       <div class="photo-view-area">
+        {#if photo.photostring}
+        <img src={photo.photostring
+        } alt="Uploadedimage"/>
+        {/if}
         <!-- 写真が表示されるための空のエリア -->
       </div>
     </div>
@@ -24,28 +40,7 @@
       <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
       <button on:click={() => likePhoto(photo)} class="iine-button" >いいね！</button>
     </div>
-
-    <div class="photo-view-container">
-      <p class="view-instruction">ユーザー名</p>
-      <div class="photo-view-area">
-        <!-- 写真が表示されるための空のエリア -->
-      </div>
-    </div>
-    <div class="iine-container">
-      <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
-      <button class="iine-button" >いいね！</button>
-    </div>
-
-    <div class="photo-view-container">
-      <p class="view-instruction">ユーザー名</p>
-      <div class="photo-view-area">
-        <!-- 写真が表示されるための空のエリア -->
-      </div>
-    </div>
-    <div class="iine-container">
-      <!-- on:click を使ってボタンが押された時に handleSubmit 関数を実行 -->
-      <button class="iine-button" >いいね！</button>
-    </div>
+  {/each}
 </main>
 
 <style>

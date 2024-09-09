@@ -33,12 +33,12 @@ const title = "posted"
 }
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log("行ってる？")
+        console.log("ロード")
       cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
+        console.log("ファイル名決定")
       cb(null, Date.now() + path.extname(file.originalname));
-      console.log("行ってる？２")
     }
   });
   
@@ -95,7 +95,7 @@ res={errer:bool,msg:text}
                 body= body.slice(0,req.body.num);
             }
             console.log(requestType+"成功")
-            console.log(body)
+            console.log("kko",body)
             res.json({error:false,msg:null,body:body})
         }
 
@@ -175,7 +175,6 @@ res={errer:bool,msg:text}
         else{
             postid=id()
             body=req.body
-            body.who=who
             body.photo=req.file.filename
             body.when=new Date()
             body.id=postid

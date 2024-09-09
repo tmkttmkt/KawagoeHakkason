@@ -6,16 +6,16 @@
   async function handleSubmit() {
     let flg1=true,flg2=true,flg3=true
     //pho:{photo:File,description:string,who:string,topic:string}
-    if(imageSrc1){
-      flg1=await createPost({photo:imageSrc1,description:Description1,who:who1,topic:topic1})
+    if(image1){
+      flg1=await createPost({photo:image1,description:Description1,who:who1,topic:topic1})
 
     }
-    if(imageSrc2){
-      flg2=await createPost({photo:imageSrc2,description:Description2,who:who2,topic:topic2})
+    if(image2){
+      flg2=await createPost({photo:image2,description:Description2,who:who2,topic:topic2})
 
     }
-    if(imageSrc3){
-      flg3=await createPost({photo:imageSrc3,description:Description3,who:who3,topic:topic3})
+    if(image3){
+      flg3=await createPost({photo:image3,description:Description3,who:who3,topic:topic3})
 
     }
     if(flg1&&flg2&&flg3){
@@ -28,9 +28,15 @@
     imageSrc1=null
     imageSrc2=null
     imageSrc3=null
+    image1=null
+    image2=null
+    image3=null
   }
-  //写真の入る変数
+  //写真urlの入る変数
   let imageSrc1,imageSrc2,imageSrc3
+  
+  //写真の入る変数
+  let image1,image2,image3
   //説明の入る変数
   let Description1="画像に関する説明を入力",Description2="画像に関する説明を入力",Description3="画像に関する説明を入力"
   //ユーザー名
@@ -38,17 +44,23 @@
   //トッピック
   let topic1,topic2,topic3
   function handleFileUpload(event,i) {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if(i==1)imageSrc1 = e.target.result; // 画像のデータURLを設定
-        if(i==2)imageSrc2 = e.target.result; // 画像のデータURLを設定
-        if(i==3)imageSrc3 = e.target.result; // 画像のデータURLを設定
-      };
-      reader.readAsDataURL(file); // 画像をData URL形式で読み込む
+    const file =  event.target .files?.[0];
+    
+        if(i==1){
+          image1=file
+          imageSrc1 =URL.createObjectURL(file); // 画像のデータURLを設定
+        }
+        if(i==2){
+          image2=file
+          imageSrc2 =URL.createObjectURL(file); // 画像のデータURLを設定
+        }
+        if(i==3){
+          image3=file
+          imageSrc3 =URL.createObjectURL(file); // 画像のデータURLを設定
+        }
+        console.log(imageSrc1)
+        console.log(file)
     }
-  }
 </script>
 
 <main>

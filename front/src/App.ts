@@ -36,7 +36,7 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
 }
 let photostring
 // サーバーから写真取得
-let photos: Array<{ id:number; description: string; likes: number ;photostring:string}> = [];
+let photos: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string}> = [];
 let error: string | null = null;
 
 
@@ -80,11 +80,10 @@ export async function searchPhotos() {
     if (response.ok) {
       let data = await response.json();
       let ids=data.body
-      ids.forEach(async function(post) {
+      for (const post of ids) {
         let base64Imagest=await fetchPhotos(post.id)
-        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest}]
-
-      });
+        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who}]
+      };
     } else {
       error = "Failed to load photos";
     }
@@ -96,7 +95,7 @@ export async function searchPhotos() {
 
 
 // いいねボタンが押されたときの処理
-export async function likePhoto(photo: { id:number; description: string; likes: number ,photostring:string}) {
+export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string}) {
   const likedPhotos = JSON.parse(localStorage.getItem('likedPhotos') || '[]');
     // すでにいいねを押していた場合は何もしない
   if (likedPhotos.includes(photo.id)) {
@@ -114,7 +113,7 @@ export async function likePhoto(photo: { id:number; description: string; likes: 
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id:1 ,good:1}), // photoのURLやIDを送信
+      body: JSON.stringify({ id:photo.id ,good:1}), // photoのURLやIDを送信
     });
 
     if (!response.ok) {
