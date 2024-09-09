@@ -80,7 +80,7 @@ export async function searchPhotos() {
       let ids=data.body
       for (const post of ids) {
         let base64Imagest=await fetchPhotos(post.id)
-        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:false}]
+        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true}]
       };
     } else {
       error = "Failed to load photos";
@@ -93,17 +93,8 @@ export async function searchPhotos() {
 
 
 // いいねボタンが押されたときの処理
-export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string}) {
-  const likedPhotos = JSON.parse(localStorage.getItem('likedPhotos') || '[]');
-    // すでにいいねを押していた場合は何もしない
-  if (likedPhotos.includes(photo.id)) {
-      successMsg="いっってないが？？？"
-    alert("You have already liked this post.");
-    return;
-  }
-
+export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string},n:number) {
   try {
-    photo.likes += 1; // 画面上で即座に反映させる
 
     // サーバーにいいね数を送信
     const response = await fetch(url+'/posted/good/', {  // ここをサーバーのAPIエンドポイントに置き換える
@@ -111,7 +102,7 @@ export async function likePhoto(photo:{ id:number; description: string; likes: n
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id:photo.id ,good:1}), // photoのURLやIDを送信
+      body: JSON.stringify({ id:photo.id ,good:n}), // photoのURLやIDを送信
     });
 
     if (!response.ok) {
@@ -124,13 +115,9 @@ export async function likePhoto(photo:{ id:number; description: string; likes: n
     }
     else{
       successMsg="いったが？？？"
-    // 成功したらローカルストレージに保存
-    likedPhotos.push(photo.id);
-    localStorage.setItem('likedPhotos', JSON.stringify(likedPhotos));
     }
   } catch (err) {
     console.error(err);
-    photo.likes -= 1; // エラーが発生したら元に戻す
   }
 }
 

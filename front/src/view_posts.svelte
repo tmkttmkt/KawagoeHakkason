@@ -22,12 +22,16 @@
     <p class="view-instruction">お題目:{photo.topic}</p>
     <div class="photo-view-area">
       {#if photo.photostring}
-      <img src={photo.photostring} alt="Uploaded image" class="photo"/>
+      <img src={photo.photostring} alt="Uploaded" class="photo"/>
       {/if}
       <div class="iine-container">
         <div class="like-count">{photo.good}</div>
-        <div class="heart" on:click={() => {likePhoto(photo); photo.good++; photo.flg = !photo.flg;}} 
-             style="background-color: {photo.flg ? '#ff8dec' : '#ccc'};">
+        <div class="heart" on:click={() => {
+          likePhoto(photo,photo.flg?1:-1);
+          photo.good+=photo.flg?1:-1;
+          photo.flg = !photo.flg;
+          }} 
+             style="background-color: {!photo.flg ? '#ff8dec' : '#ccc'};">
         </div>
       </div>
     </div>
