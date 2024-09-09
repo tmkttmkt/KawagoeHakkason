@@ -6,13 +6,13 @@
   <!-- 画像を中央に配置するためのコンテナ -->
   <div class="image-container">
     <h1 class="shadow">埼玉ラリー</h1>
-    <img src="./src/IMG_0919.jpg" alt="埼玉ラリーの画像" class="main-image">
+    <img src="./src/IMG_2019.jpg" alt="埼玉ラリーの画像" class="main-image">
   </div>
   <!-- 画像の下に「埼玉ラリーって何？」のタイトルを配置 -->
   <h2 class="shadow below-image">埼玉ラリーって何？</h2>
   <!-- 本文を追加 -->
   <p class="description">
-    埼玉ラリーとは、埼玉県の3つの異なる地域からお題を1つ選び、お題に沿った写真を投稿することで抽選で景品が当たります。埼玉県の観光地の写真を集めて投稿しよう!!
+    説明しよう！埼玉ラリーとは、お題を一つ選び、お題に沿った場所の写真を投稿することで、その時だけのメッセージカードを手に入れよう！
   </p>
   <!-- ボタンを縦に並べて中央に配置するためのコンテナ -->
   <div class="button-container">

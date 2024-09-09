@@ -36,7 +36,7 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
 }
 let photostring
 // サーバーから写真取得
-let photos: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string}> = [];
+let photos: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean}> = [];
 let error: string | null = null;
 
 
@@ -82,7 +82,7 @@ export async function searchPhotos() {
       let ids=data.body
       for (const post of ids) {
         let base64Imagest=await fetchPhotos(post.id)
-        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who}]
+        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:false}]
       };
     } else {
       error = "Failed to load photos";
