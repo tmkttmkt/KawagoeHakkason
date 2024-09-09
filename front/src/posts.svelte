@@ -72,7 +72,7 @@
       <input type="file" accept="image/*" on:change={(event)=>handleFileUpload(event, 1)} />
       <div class="photo-upload-area">
         {#if imageSrc1}
-          <img src={imageSrc1} alt="Uploaded image" />
+          <img src={imageSrc1} alt="Uploaded" />
         {/if}
       </div>
     </div>
@@ -94,7 +94,7 @@
       <input type="file" accept="image/*" on:change={(event)=>handleFileUpload(event, 2)} />
       <div class="photo-upload-area">
         {#if imageSrc2}
-          <img src={imageSrc2} alt="Uploaded image" />
+          <img src={imageSrc2} alt="Uploaded" />
         {/if}
       </div>
     </div>
@@ -116,7 +116,7 @@
       <input type="file" accept="image/*" on:change={(event)=>handleFileUpload(event, 3)} />
       <div class="photo-upload-area">
         {#if imageSrc3}
-          <img src={imageSrc3} alt="Uploaded image" />
+          <img src={imageSrc3} alt="Uploaded" />
         {/if}
       </div>
     </div>
