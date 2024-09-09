@@ -1,8 +1,18 @@
 const express = require('express');
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const path = require('path');
 const sql = require('./supabql.js');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: 'dg016lyae',
+  api_key: '293182578381248',
+  api_secret: "2crAAnYpGRNY7jGEsBC05xQGA-I"
+});
+  
+//CLOUDINARY_URL=cloudinary://293182578381248:2crAAnYpGRNY7jGEsBC05xQGA-I@dg016lyae
 
 const title = "posted"
 {
@@ -31,16 +41,15 @@ const title = "posted"
         return count; // 現在のカウンタの値を返す
     };
 }
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        console.log("ロード")
-      cb(null, 'uploads/');
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: 'uploads', // 保存するフォルダ名
+      format: async (req, file) => 'jpg', // jpgフォーマットに変換
+      public_id: (req, file) => file.originalname, // ファイル名を使用
     },
-    filename: function (req, file, cb) {
-        console.log("ファイル名決定")
-      cb(null, Date.now() + path.extname(file.originalname));
-    }
   });
+  
   
 const upload = multer({ storage: storage });
 
@@ -113,18 +122,7 @@ res={errer:bool,msg:text}
         }
         else{
             console.log(requestType+"成功")
-            const filePath = path.join(__dirname,  '..','uploads', sel.data[0].photo);
-            console.log(filePath)
-            fs.readFile(filePath,(err, fileBuffer) => {
-                if (err) {
-                    console.error("ファイル読み込みエラー:", err);
-                    res.status(500).json({ error: "ファイルの読み込みに失敗しました" });
-                    return;
-                }
-        
-                const fileBase64 = fileBuffer.toString('base64');
-                res.json({ success: true, data: fileBase64 ,error:false});
-            });
+            res.json({ success: true, data: sel.data[0].photo ,error:false});
         }
 
     }
@@ -175,7 +173,7 @@ res={errer:bool,msg:text}
         else{
             postid=id()
             body=req.body
-            body.photo=req.file.filename
+            body.photo=req.file.path
             body.when=new Date()
             body.id=postid
             body.good=0

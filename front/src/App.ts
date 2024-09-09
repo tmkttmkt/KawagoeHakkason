@@ -3,8 +3,8 @@
   //情報確認のための変数
 let successMsg: string = "";
 let errorMsg: string = "";
-let url="http://localhost:5000"
-//let url="https://kawagoe-hakkason-mjg1.vercel.app"
+//let url="http://localhost:5000"
+let url="https://kawagoe-hakkason-mjg1.vercel.app"
 
 // 投稿を作成する関数
 export async function createPost(pho:{photo:File,description:string,who:string,topic:string}) {
@@ -15,8 +15,7 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
     formData.append("description", pho.description);
     formData.append("topic", pho.topic);
     formData.append("who", pho.who);
-    console.log(pho)
-    console.log(formData)
+    console.log(url+"/posted/kari")
     const res = await fetch(url+"/posted/kari", {
       method: "POST",
       body: formData,
@@ -56,9 +55,7 @@ export async function fetchPhotos(id:number) {
       if (data.error) {
             errorMsg = data.msg;
         } else {
-            const base64Image = data.data;
-            photostring = `data:image/jpeg;base64,${base64Image}`; // Base64データを表示可能な形式に変換
-            return `data:image/jpeg;base64,${base64Image}`
+            return data.data
           }
     } else {
       error = "Failed to load photos";
