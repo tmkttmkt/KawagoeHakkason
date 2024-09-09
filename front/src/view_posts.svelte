@@ -11,7 +11,7 @@
   <div class="header">
     <a class="action-button" href="/">＜Homeに戻る</a>
   </div>
-  <h1 class="title">埼玉ラリー投稿画面</h1>
+  <h1 class="title">埼玉ラリー投稿表示画面</h1>
 
   <!-- 1つ目の写真表示エリアといいねボタン -->
   <div class="photo-view-container">
@@ -19,8 +19,9 @@
     <div class="photo-view-area">
       <!-- 写真が表示されるための空のエリア -->
       <div class="iine-container">
-        <!-- クリックイベントで toggleLike 関数を呼び出し、色を変更 -->
-        <button class="iine-button" on:click={() => toggleLike(0)} style="background-color: {liked[0] ? '#ff8dec' : '#ccc'};">❤️</button>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="heart" on:click={() => toggleLike(0)} style="background-color: {liked[0] ? '#ff8dec' : '#ccc'};"></div>
       </div>
     </div>
   </div>
@@ -31,7 +32,9 @@
     <div class="photo-view-area">
       <!-- 写真が表示されるための空のエリア -->
       <div class="iine-container">
-        <button class="iine-button" on:click={() => toggleLike(1)} style="background-color: {liked[1] ? '#ff8dec' : '#ccc'};">❤️</button>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="heart" on:click={() => toggleLike(1)} style="background-color: {liked[1] ? '#ff8dec' : '#ccc'};"></div>
       </div>
     </div>
   </div>
@@ -42,7 +45,9 @@
     <div class="photo-view-area">
       <!-- 写真が表示されるための空のエリア -->
       <div class="iine-container">
-        <button class="iine-button" on:click={() => toggleLike(2)} style="background-color: {liked[2] ? '#ff8dec' : '#ccc'};">❤️</button>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div class="heart" on:click={() => toggleLike(2)} style="background-color: {liked[2] ? '#ff8dec' : '#ccc'};"></div>
       </div>
     </div>
   </div>
@@ -125,23 +130,39 @@
     bottom: 20px;
   }
 
-  .iine-button {
-    width: 50px;
-    height: 50px;
-    border: none;
-    background-color: #ccc; /* 初期のグレーカラー */
-    color: white;
-    border-radius: 50%; /* ボタンを円形にする */
-    font-size: 30px;
+  /* ハート形のボタン */
+  .heart {
+    width: 30px; /* ハートのサイズを小さく調整 */
+    height: 27px; /* ハートのサイズを小さく調整 */
+    position: relative;
+    display: inline-block;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    background-color: #ccc; /* 初期はグレー */
+    transform: rotate(-45deg); /* ハートの回転 */
+    transition: background-color 0.3s;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   }
 
-  .iine-button:hover {
+  .heart:before, .heart:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: inherit; /* ハートの色を引き継ぐ */
+  }
+
+  .heart:before {
+    top: -15px; /* ハートの上の円の位置を調整 */
+    left: 0;
+  }
+
+  .heart:after {
+    top: 0;
+    left: 15px; /* ハートの右の円の位置を調整 */
+  }
+
+  .heart:hover {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   }
 </style>

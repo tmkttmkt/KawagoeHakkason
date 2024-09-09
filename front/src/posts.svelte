@@ -16,9 +16,9 @@
   <div class="dropdown-container">
     <label for="dropdown1" class="dropdown-label">選択してください：</label>
     <select id="dropdown1" class="dropdown">
-      <option value="option1">オプション 1</option>
-      <option value="option2">オプション 2</option>
-      <option value="option3">オプション 3</option>
+      <option value="option1">風景（川越市）</option>
+      <option value="option2">食べ物（川越市）</option>
+      <option value="option3">夜景（川越市）</option>
     </select>
     <div class="photo-upload-container">
       <p class="upload-instruction">ここに写真を貼り付けてください。</p>
@@ -31,9 +31,9 @@
   <div class="dropdown-container">
     <label for="dropdown2" class="dropdown-label">選択してください：</label>
     <select id="dropdown2" class="dropdown">
-      <option value="option1">オプション 1</option>
-      <option value="option2">オプション 2</option>
-      <option value="option3">オプション 3</option>
+      <option value="option1">風景（狭山市）</option>
+      <option value="option2">食べ物（狭山市）</option>
+      <option value="option3">夜景（狭山市）</option>
     </select>
     <div class="photo-upload-container">
       <p class="upload-instruction">ここに写真を貼り付けてください。</p>
@@ -46,9 +46,9 @@
   <div class="dropdown-container">
     <label for="dropdown3" class="dropdown-label">選択してください：</label>
     <select id="dropdown3" class="dropdown">
-      <option value="option1">オプション 1</option>
-      <option value="option2">オプション 2</option>
-      <option value="option3">オプション 3</option>
+      <option value="option1">風景（所沢市）</option>
+      <option value="option2">食べ物（所沢市）</option>
+      <option value="option3">夜景（所沢市）</option>
     </select>
     <div class="photo-upload-container">
       <p class="upload-instruction">ここに写真を貼り付けてください。</p>
