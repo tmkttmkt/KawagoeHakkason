@@ -59,9 +59,9 @@
   <div class="dropdown-container">
     <label for="dropdown1" class="dropdown-label">選択してください：</label>
     <select id="dropdown1" class="dropdown" bind:value={topic1}>
-      <option value="option1">風景（川越市）</option>
-      <option value="option2">食べ物（川越市）</option>
-      <option value="option3">夜景（川越市）</option>
+      <option value="風景（川越市）">風景（川越市）</option>
+      <option value="食べ物（川越市）">食べ物（川越市）</option>
+      <option value="夜景（川越市）">夜景（川越市）</option>
     </select>
     <div class="photo-upload-container">
       <label for="description1">画像の説明:</label>
@@ -81,9 +81,9 @@
   <div class="dropdown-container">
     <label for="dropdown2" class="dropdown-label">選択してください：</label>
     <select id="dropdown2" class="dropdown" bind:value={topic2}>
-      <option value="option1">風景（狭山市）</option>
-      <option value="option2">食べ物（狭山市）</option>
-      <option value="option3">夜景（狭山市）</option>
+      <option value="風景（狭山市）">風景（狭山市）</option>
+      <option value="食べ物（狭山市）">食べ物（狭山市）</option>
+      <option value="夜景（狭山市）">夜景（狭山市）</option>
     </select>
     <div class="photo-upload-container">
       <label for="description2">画像の説明:</label>
@@ -103,9 +103,9 @@
   <div class="dropdown-container">
     <label for="dropdown3" class="dropdown-label">選択してください：</label>
     <select id="dropdown3" class="dropdown" bind:value={topic3}>
-      <option value="option1">風景（所沢市）</option>
-      <option value="option2">食べ物（所沢市）</option>
-      <option value="option3">夜景（所沢市）</option>
+      <option value="風景（所沢市）">風景（所沢市）</option>
+      <option value="食べ物（所沢市）">食べ物（所沢市）</option>
+      <option value="夜景（所沢市）">夜景（所沢市）</option>
     </select>
     <div class="photo-upload-container">
       <label for="description3">画像の説明:</label>
