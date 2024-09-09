@@ -3,7 +3,8 @@
   //情報確認のための変数
 let successMsg: string = "";
 let errorMsg: string = "";
-
+let url="http://localhost:5000"
+//let url="https://kawagoe-hakkason-mjg1.vercel.app"
 
 // 投稿を作成する関数
 export async function createPost(pho:{photo:File,description:string,who:string,topic:string}) {
@@ -16,7 +17,7 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
     formData.append("who", pho.who);
     console.log(pho)
     console.log(formData)
-    const res = await fetch("http://localhost:5000/posted/kari", {
+    const res = await fetch(url+"/posted/kari", {
       method: "POST",
       body: formData,
     });
@@ -43,7 +44,7 @@ let error: string | null = null;
 // サーバーから写真取得する関数
 export async function fetchPhotos(id:number) {
   try {
-    const response = await fetch('http://localhost:5000/posted/get',{// ここをサーバーのAPIエンドポイントに置き換える
+    const response = await fetch(url+'/posted/get',{// ここをサーバーのAPIエンドポイントに置き換える
     method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ export async function fetchPhotos(id:number) {
 export async function searchPhotos() {
   photos=[]
   try {
-    const response = await fetch('http://localhost:5000/posted/search',{// ここをサーバーのAPIエンドポイントに置き換える
+    const response = await fetch(url+'/posted/search',{// ここをサーバーのAPIエンドポイントに置き換える
     method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,7 +109,7 @@ export async function likePhoto(photo:{ id:number; description: string; likes: n
     photo.likes += 1; // 画面上で即座に反映させる
 
     // サーバーにいいね数を送信
-    const response = await fetch('http://localhost:5000/posted/good/', {  // ここをサーバーのAPIエンドポイントに置き換える
+    const response = await fetch(url+'/posted/good/', {  // ここをサーバーのAPIエンドポイントに置き換える
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
