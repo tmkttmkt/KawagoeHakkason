@@ -1,9 +1,17 @@
 <script>
   let liked = [false, false, false];
+  let likeCounts = [0, 0, 0]; // いいね数の配列
 
   // いいねボタンをクリックしたときに色を入れ替える関数
   function toggleLike(index) {
     liked[index] = !liked[index]; // true/falseを切り替える
+
+    // いいねが押された場合はカウントを増加・減少させる
+    if (liked[index]) {
+      likeCounts[index]++;
+    } else {
+      likeCounts[index]--;
+    }
   }
 </script>
 
@@ -19,6 +27,7 @@
     <div class="photo-view-area">
       <!-- 写真が表示されるための空のエリア -->
       <div class="iine-container">
+        <div class="like-count">{likeCounts[0]}</div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="heart" on:click={() => toggleLike(0)} style="background-color: {liked[0] ? '#ff8dec' : '#ccc'};"></div>
@@ -32,6 +41,7 @@
     <div class="photo-view-area">
       <!-- 写真が表示されるための空のエリア -->
       <div class="iine-container">
+        <div class="like-count">{likeCounts[1]}</div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="heart" on:click={() => toggleLike(1)} style="background-color: {liked[1] ? '#ff8dec' : '#ccc'};"></div>
@@ -45,6 +55,7 @@
     <div class="photo-view-area">
       <!-- 写真が表示されるための空のエリア -->
       <div class="iine-container">
+        <div class="like-count">{likeCounts[2]}</div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div class="heart" on:click={() => toggleLike(2)} style="background-color: {liked[2] ? '#ff8dec' : '#ccc'};"></div>
@@ -128,6 +139,14 @@
     position: absolute;
     right: 20px; /* 右端に配置 */
     bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .like-count {
+    margin-right: 10px; /* ハートとの間にスペースを追加 */
+    font-size: 1.2em;
+    font-weight: bold;
   }
 
   /* ハート形のボタン */
