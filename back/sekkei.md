@@ -15,6 +15,10 @@ res={errer:bool,msg:text,data:obj}
 post:/
 body={photo:??,where:txt,description:txt,topic:txt,who:txt}
 res={errer:bool,msg:text,body:int}
+### 投稿仮
+post:/kari
+body={photo:??,where:txt,description:txt,topic:txt,who:txt}
+res={errer:bool,msg:text,body:int}
 ### 削除
 delete:/
 body={id:int}

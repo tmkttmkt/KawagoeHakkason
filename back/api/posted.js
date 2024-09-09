@@ -33,10 +33,12 @@ const title = "posted"
 }
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
+        console.log("行ってる？")
       cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + path.extname(file.originalname));
+      console.log("行ってる？２")
     }
   });
   
@@ -133,6 +135,7 @@ res={errer:bool,msg:text}
     async function httpget(req,res,who){
         
         if(!req.file){
+            console.log(requestType+"ファイル失敗")
             res.json({error:true,msg:'ファイルをアップロードできませんでした'});
   
         }
@@ -159,6 +162,39 @@ res={errer:bool,msg:text}
         }
     }
     router.post("/", upload.single('photo'),sql.keycheck(sql.whocheck(httpget,requestType),requestType,["where","description","topic","who"]))
+}
+{//投稿(仮)
+    let requestType="post::"+title
+    async function httpget(req,res){
+        
+        if(!req.file){
+            console.log(requestType+"ファイル失敗")
+            res.json({error:true,msg:'ファイルをアップロードできませんでした'});
+  
+        }
+        else{
+            postid=id()
+            body=req.body
+            body.who=who
+            body.photo=req.file.filename
+            body.when=new Date()
+            body.id=postid
+            body.good=0
+            console.log(body)
+            selt=await sql.setData(title,body)
+            if(selt.error){
+                console.log(requestType+"投稿失敗")
+                console.error(selt.error)
+                res.json({error:true,msg:'なんでだろうねわかんない'})
+            }
+            else{
+                console.log(requestType+"成功")
+                res.json({error:false,msg:null,body:postid})
+            }
+                
+        }
+    }
+    router.post("/kari", upload.single('photo'),sql.keycheck(httpget,requestType,["where","description","topic","who"]))
 }
 {//削除
     let requestType="delete::"+title

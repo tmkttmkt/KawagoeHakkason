@@ -4,30 +4,26 @@
 let successMsg: string = "";
 let errorMsg: string = "";
 
-// 投稿するための変数
-let photo: File | null = null;
-let where: string = "";
-let description: string = "";
-let topic: string = "";
-let who: string = "John Doe";
 
 // 投稿を作成する関数
-export async function createPost() {
+export async function createPost(pho:{photo:File,description:string,who:string,topic:string}) {
   try {
     const formData = new FormData();
-    if (photo) formData.append("photo", photo);
-    formData.append("where", where);
-    formData.append("description", description);
-    formData.append("topic", topic);
-    formData.append("who", who);
-
-    const res = await fetch("http://localhost:5000/posted", {
+    formData.append("photo", pho.photo);
+    formData.append("where", "川越市");
+    formData.append("description", pho.description);
+    formData.append("topic", pho.topic);
+    formData.append("who", pho.who);
+    console.log(pho)
+    console.log(formData)
+    const res = await fetch("http://localhost:5000/posted/kari", {
       method: "POST",
       body: formData,
     });
     const data = await res.json();
     if (data.error) {
       errorMsg = data.msg;
+      console.log(errorMsg)
       return false
     } else {
       successMsg = `Post created with ID: ${data.body}`;
