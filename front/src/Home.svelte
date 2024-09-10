@@ -2,6 +2,9 @@
   import { Link } from "svelte-routing";
 </script>
 
+<svelte:head>
+  <title>埼玉ラリー</title>
+</svelte:head>
 <main>
   <title>埼玉ラリー</title>
   <!-- 画像を中央に配置するためのコンテナ -->
