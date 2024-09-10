@@ -51,8 +51,14 @@
   }
 </script>
 
-<main>
+<svelte:head>
   <title>埼玉ラリー</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./aicon.png" />
+</svelte:head>
+
+<main>
   <div class="header">
     <a class="action-button" href="/">＜Homeに戻る</a>
   </div>
