@@ -25,9 +25,17 @@
       <img src={photo.photostring} alt="Uploaded" class="photo"/>
       {/if}
       <div class="iine-container">
-        <div class="like-count">{photo.good+!photo.flg?1:-1}</div>
-        <div class="heart" on:click={() => {
-          likePhoto(photo);
+        <div class="like-count">{photo.good+(!photo.flg?1:-1)}</div>
+        <div class="heart" on:click={async() => {
+          if(photo.prosflg){
+            photo.prosflg=false
+          }
+          else{
+            return
+          }
+          photo.flg=!photo.flg
+          await likePhoto(photo);
+          photo.prosflg=true
           }} 
              style="background-color: {photo.flg ? '#ff8dec' : '#ccc'};">
         </div>

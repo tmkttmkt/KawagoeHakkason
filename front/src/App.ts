@@ -95,13 +95,6 @@ export async function searchPhotos() {
 // いいねボタンが押されたときの処理
 export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean,prosflg:boolean}) {
   try {
-    if(photo.prosflg){
-      photo.prosflg=false
-
-    }
-    else{
-      return
-    }
     photo.flg=!photo.flg
     // サーバーにいいね数を送信
     const response = await fetch(url+'/posted/good/', {  // ここをサーバーのAPIエンドポイントに置き換える
@@ -126,8 +119,6 @@ export async function likePhoto(photo:{ id:number; description: string; likes: n
   } catch (err) {
     console.error(err);
   }
-  
-  photo.prosflg=true
 }
 
 
