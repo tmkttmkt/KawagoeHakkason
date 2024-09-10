@@ -13,7 +13,7 @@
   <!-- 画像を中央に配置するためのコンテナ -->
   <div class="image-container">
     <h1 class="shadow">埼玉ラリー</h1>
-    <img src="./IMG_2019.jpg" alt="埼玉ラリーの画像" class="main-image">
+    <img src="./photo0000-7484.jpg" alt="埼玉ラリーの画像" class="main-image">
   </div>
   <!-- 画像の下に「埼玉ラリーって何？」のタイトルを配置 -->
   <h2 class="shadow below-image">埼玉ラリーって何？</h2>
