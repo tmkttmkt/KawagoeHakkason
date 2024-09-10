@@ -1,7 +1,7 @@
 <script>
   import { Link } from "svelte-routing";
   import {createPost} from "./App.ts";
-  
+  let flg=true
   let test=""; 
   async function handleSubmit() {
     let flg1=true,flg2=true,flg3=true
@@ -25,6 +25,7 @@
     image1=null;
     image2=null;
     image3=null;
+    flg=true;
   }
 
   let imageSrc1, imageSrc2, imageSrc3;
@@ -123,7 +124,9 @@
   </div>
 
   <div class="submit-button-container">
-    <button class="submit-button" on:click={handleSubmit}>投稿する</button>
+    <button class="submit-button" on:click={()=>{if(flg){flg=false;handleSubmit();}
+                                                else {alert("先ほどの投稿を待ってください");}
+    }}>投稿する</button>
   </div>
 </main>
 
