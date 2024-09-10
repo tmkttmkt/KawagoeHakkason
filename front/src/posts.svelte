@@ -92,6 +92,7 @@
       <option value="食べ物（狭山市）">食べ物（狭山市）</option>
       <option value="夜景（狭山市）">夜景（狭山市）</option>
     </select>
+
     <div class="photo-upload-container">
       <label for="description2">画像の説明:</label>
       <input type="text" id="description2" bind:value={Description2} />
@@ -134,6 +135,7 @@
   </div>
 </main>
 
+
 <style>
   main {
     text-align: center;
@@ -152,6 +154,16 @@
     left: 0;
     padding: 10px;
     box-sizing: border-box;
+  }
+
+  h1 {
+  position: relative;
+  padding: 0.2em 0.5em;
+  background: -webkit-linear-gradient(to right, rgb(255, 124, 111), #ffc994);
+  background: linear-gradient(to right, rgb(255, 124, 111), #ffc994);
+  color: white;
+  font-weight: lighter;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.56);
   }
 
   .action-button {
