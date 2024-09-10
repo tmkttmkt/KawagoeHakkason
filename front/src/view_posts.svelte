@@ -25,10 +25,9 @@
       <img src={photo.photostring} alt="Uploaded" class="photo"/>
       {/if}
       <div class="iine-container">
-        <div class="like-count">{photo.good}</div>
+        <div class="like-count">{photo.good+!photo.flg?1:-1}</div>
         <div class="heart" on:click={() => {
-          photo.flg = !photo.flg;
-          likePhoto(photo,photo.flg?1:-1);
+          likePhoto(photo);
           }} 
              style="background-color: {photo.flg ? '#ff8dec' : '#ccc'};">
         </div>
