@@ -26,8 +26,8 @@
       {/if}
       <div class="iine-container">
         <div class="like-count">{photo.good}</div>
-        <div class="heart" on:click={() => {
-          likePhoto(photo,photo.flg?1:-1);
+        <div class="heart" on:click={async() => {
+          await likePhoto(photo,photo.flg?1:-1);
           photo.good+=photo.flg?1:-1;
           photo.flg = !photo.flg;
           }} 
