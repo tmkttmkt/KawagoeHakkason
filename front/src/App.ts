@@ -36,7 +36,7 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
 }
 let photostring
 // サーバーから写真取得
-let photos: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
+let photos: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean,prosflg:boolean}> = [];
 let error: string | null = null;
 
 
@@ -80,7 +80,7 @@ export async function searchPhotos() {
       let ids=data.body
       for (const post of ids) {
         let base64Imagest=await fetchPhotos(post.id)
-        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:false,showflg:true}]
+        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:false,showflg:true,prosflg:true}]
       };
     } else {
       error = "Failed to load photos";
@@ -93,16 +93,23 @@ export async function searchPhotos() {
 
 
 // いいねボタンが押されたときの処理
-export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean},n:number) {
+export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean,prosflg:boolean}) {
   try {
+    if(photo.prosflg){
+      photo.prosflg=false
 
+    }
+    else{
+      return
+    }
+    photo.flg=!photo.flg
     // サーバーにいいね数を送信
     const response = await fetch(url+'/posted/good/', {  // ここをサーバーのAPIエンドポイントに置き換える
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id:photo.id ,good:n}), // photoのURLやIDを送信
+      body: JSON.stringify({ id:photo.id ,good:!photo.flg?1:-1}), // photoのURLやIDを送信
     });
 
     if (!response.ok) {
@@ -119,6 +126,8 @@ export async function likePhoto(photo:{ id:number; description: string; likes: n
   } catch (err) {
     console.error(err);
   }
+  
+  photo.prosflg=true
 }
 
 

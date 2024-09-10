@@ -30,7 +30,7 @@
           photo.flg = !photo.flg;
           likePhoto(photo,photo.flg?1:-1);
           }} 
-             style="background-color: {!photo.flg ? '#ff8dec' : '#ccc'};">
+             style="background-color: {photo.flg ? '#ff8dec' : '#ccc'};">
         </div>
       </div>
     </div>
