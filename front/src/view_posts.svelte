@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
-  import {searchPhotos,likePhoto} from "./App.ts";
+  import { searchPhotos, likePhoto } from "./App.ts";
 
-  let body = []
+  let body = [];
   onMount(async () => {
     body = await searchPhotos();
   });
@@ -26,14 +26,16 @@
       {/if}
       <div class="iine-container">
         <div class="like-count">{photo.good}</div>
-        <div class="heart" on:click={async() => {
-          photo.good+=photo.flg?1:-1;
-          photo.showflg=!photo.flg
-          await likePhoto(photo,!photo.flg?1:-1);
-          photo.flg = !photo.flg;
-          }} 
-             style="background-color: {!photo.showflg ? '#ff8dec' : '#ccc'};">
-        </div>
+        <button class="sweet-potato" 
+          on:click={() => {
+            likePhoto(photo, photo.flg ? 1 : -1);
+            photo.good += photo.flg ? 1 : -1;
+            photo.flg = !photo.flg;
+          }}
+          style="filter: {photo.flg ? 'grayscale(100%)' : 'none'};"
+          type="button">
+          🍠
+        </button>    
       </div>
     </div>
   </div>
@@ -124,6 +126,10 @@
     bottom: 20px;
     display: flex;
     align-items: center;
+    padding: 10px; /* パディングを追加して四角のボックスを作成 */
+    background-color: rgba(255, 255, 255, 0.9); /* 背景色を白にして若干の透明度 */
+    border-radius: 8px; /* 角を少し丸く */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* ボックスに影を追加 */
   }
 
   .like-count {
@@ -132,38 +138,17 @@
     font-weight: bold;
   }
 
-  .heart {
-    width: 30px;
-    height: 30px;
-    position: relative;
-    display: inline-block;
+  .sweet-potato {
+    font-size: 30px;
     cursor: pointer;
-    background-color: #ccc;
-    transform: rotate(-45deg);
-    transition: background-color 0.3s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+    transition: filter 0.3s ease;
   }
 
-  .heart:before, .heart:after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: inherit;
-  }
-
-  .heart:before {
-    top: -15px;
-    left: 0;
-  }
-
-  .heart:after {
-    top: 0;
-    left: 15px;
-  }
-
-  .heart:hover {
+  .sweet-potato:hover {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   }
 </style>
