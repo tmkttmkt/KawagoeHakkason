@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import {searchPhotos,likePhoto} from "./App.ts";
-
+  let flg=true
   let body = []
   onMount(async () => {
     body = await searchPhotos();
@@ -27,9 +27,12 @@
       <div class="iine-container">
         <div class="like-count">{photo.good}</div>
         <div class="heart" on:click={async() => {
+          if(flg){flg =false}
+          else{ return}
           await likePhoto(photo,photo.flg?1:-1);
           photo.good+=photo.flg?1:-1;
           photo.flg = !photo.flg;
+          flg=true
           }} 
              style="background-color: {!photo.flg ? '#ff8dec' : '#ccc'};">
         </div>
