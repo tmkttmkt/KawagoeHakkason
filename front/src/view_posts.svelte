@@ -28,10 +28,11 @@
         <div class="like-count">{photo.good}</div>
         <div class="heart" on:click={async() => {
           photo.good+=photo.flg?1:-1;
-          photo.flg = !photo.flg;
+          photo.showflg=!photo.flg
           await likePhoto(photo,!photo.flg?1:-1);
+          photo.flg = !photo.flg;
           }} 
-             style="background-color: {!photo.flg ? '#ff8dec' : '#ccc'};">
+             style="background-color: {!photo.showflg ? '#ff8dec' : '#ccc'};">
         </div>
       </div>
     </div>
