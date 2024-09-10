@@ -80,7 +80,7 @@ export async function searchPhotos() {
       let ids=data.body
       for (const post of ids) {
         let base64Imagest=await fetchPhotos(post.id)
-        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
+        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:false,showflg:true}]
       };
     } else {
       error = "Failed to load photos";
