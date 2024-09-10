@@ -67,9 +67,8 @@
     <div class="photo-upload-container">
       <label for="description1">画像の説明:</label>
       <input type="text" id="description1" bind:value={Description1} />
-      <label for="wh1">ユーザー名:</label>
+      <p><label for="wh1">ユーザー名:</label></p>
       <input type="text" id="wh1" bind:value={who1} />
-      <p class="upload-instruction">ここに写真を貼り付けてください。</p>
       <input type="file" accept="image/*" on:change={(event)=>handleFileUpload(event, 1)} />
       <div class="photo-upload-area">
         {#if imageSrc1}
@@ -89,9 +88,8 @@
     <div class="photo-upload-container">
       <label for="description2">画像の説明:</label>
       <input type="text" id="description2" bind:value={Description2} />
-      <label for="wh2">ユーザー名:</label>
+      <p><label for="wh2">ユーザー名:</label></p>
       <input type="text" id="wh2" bind:value={who2} />
-      <p class="upload-instruction">ここに写真を貼り付けてください。</p>
       <input type="file" accept="image/*" on:change={(event)=>handleFileUpload(event, 2)} />
       <div class="photo-upload-area">
         {#if imageSrc2}
@@ -111,9 +109,8 @@
     <div class="photo-upload-container">
       <label for="description3">画像の説明:</label>
       <input type="text" id="description3" bind:value={Description3} />
-      <label for="wh3">ユーザー名:</label>
+      <p><label for="wh3">ユーザー名:</label></p>
       <input type="text" id="wh3" bind:value={who3} />
-      <p class="upload-instruction">ここに写真を貼り付けてください。</p>
       <input type="file" accept="image/*" on:change={(event)=>handleFileUpload(event, 3)} />
       <div class="photo-upload-area">
         {#if imageSrc3}
