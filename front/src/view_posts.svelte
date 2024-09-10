@@ -33,7 +33,9 @@
           else{
             return
           }
+          console.log(photo.flg)
           photo.flg=!photo.flg
+          console.log(photo.flg)
           await likePhoto(photo);
           photo.prosflg=true
           }} 
