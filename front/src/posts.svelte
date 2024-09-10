@@ -52,6 +52,7 @@
 </script>
 
 <main>
+  <title>埼玉ラリー</title>
   <div class="header">
     <a class="action-button" href="/">＜Homeに戻る</a>
   </div>

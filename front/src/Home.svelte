@@ -3,6 +3,7 @@
 </script>
 
 <main>
+  <title>埼玉ラリー</title>
   <!-- 画像を中央に配置するためのコンテナ -->
   <div class="image-container">
     <h1 class="shadow">埼玉ラリー</h1>
