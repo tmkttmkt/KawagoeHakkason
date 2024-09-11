@@ -4,8 +4,8 @@
   let flg=true
   async function handleSubmit() {
     try {
-      if(!image1&&!image2&&!image3){
-        alert("写真を投稿してください");
+      if((!image1)&&(!image2)&&(!image3)){
+        alert("写真を入れてください");
       }
       else{
         let flg1=true,flg2=true,flg3=true
