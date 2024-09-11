@@ -89,16 +89,16 @@ function deluuser(obj){
     let requestType="post::"+title
     async function httppost(req, res){
         let body=deluuser(req.body)
-        sel=await sql.findData(title,body)
-        if(sel.error){
+        result=await sql.findData(title,body)
+        if(result.error){
             console.log(requestType+"失敗")
-            console.error(sel.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            let flg =(sel.data === null)
+            let flg =(result.data === null)
             if(!flg){
-                if(Object.keys(sel.data).length==1){
+                if(Object.keys(result.data).length==1){
                     res.json({result:flg,msg:null})
                     console.log(requestType+"ログインします")
                 }
