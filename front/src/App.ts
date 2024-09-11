@@ -35,7 +35,7 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
   }
 }
 //
-let posts: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
+let posts: Array<{ id:number; description: string; likes: number ;photo:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
 let error: string | null = null;
 
 
@@ -78,7 +78,7 @@ export async function searchPhotos() {
       let data = await response.json();
       for (const post of data.body) {
         let base64Imagest=await fetchPhotos(post.id)
-        posts = [...posts,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
+        posts = [...posts,{id:post.id, description: post.description, likes: post.good,photo:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
       };
     } else {
       error = "Failed to load posts";
@@ -91,7 +91,7 @@ export async function searchPhotos() {
 
 
 // いいねボタンが押されたときの処理
-export async function likePhoto(photo:{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean},n:number) {
+export async function likePhoto(photo:{ id:number; description: string; likes: number ;photo:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean},n:number) {
   try {
 
     // サーバーにいいね数を送信

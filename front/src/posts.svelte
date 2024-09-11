@@ -4,24 +4,27 @@
   let flg=true
   async function handleSubmit() {
     try {
-      if(!(image1&&image2&&image3)){
+      if(image1&&image2&&image3){
+        let flg1=true,flg2=true,flg3=true
+        if(image1){
+          flg1=await createPost({photo:image1,description:Description1,who:who1,topic:topic1})
+        }
+        if(image2){
+          flg2=await createPost({photo:image2,description:Description2,who:who2,topic:topic2})
+        }
+        if(image3){
+          flg3=await createPost({photo:image3,description:Description3,who:who3,topic:topic3})
+        }
+        if(flg1&&flg2&&flg3){
+          alert("投稿が完了しました！");
+        } else {
+          alert("投稿が失敗しました！");
+        }
+      }
+      else{
         alert("写真を投稿してください");
       }
-      let flg1=true,flg2=true,flg3=true
-      if(image1){
-        flg1=await createPost({photo:image1,description:Description1,who:who1,topic:topic1})
-      }
-      if(image2){
-        flg2=await createPost({photo:image2,description:Description2,who:who2,topic:topic2})
-      }
-      if(image3){
-        flg3=await createPost({photo:image3,description:Description3,who:who3,topic:topic3})
-      }
-      if(flg1&&flg2&&flg3){
-        alert("投稿が完了しました！");
-      } else {
-        alert("投稿が失敗しました！");
-      }
+
     } finally {
       imageSrc1 = null;
       imageSrc2 = null;

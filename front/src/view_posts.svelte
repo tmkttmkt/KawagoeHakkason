@@ -28,7 +28,7 @@
     <p class="view-instruction">説明:{post.description}</p>
     <p class="view-instruction">お題目:{post.topic}</p>
     <div class="photo-view-area">
-      {#if post.photo}
+      {#if post}
       <img src={post.photo} alt="Uploaded" class="photo"/>
       {/if}
       <div class="iine-container">
