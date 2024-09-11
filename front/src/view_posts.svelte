@@ -35,11 +35,11 @@
         <div class="like-count">{post.good}</div>
         <button class="sweet-potato" 
           on:click={async() => {
-            if(!flg){return}
-            flg=false
+            if(!flg){alert("処理を待ってください");return;}
+            flg=false;
             post.good += post.flg ? 1 : -1;
             post.flg = !post.flg;
-            await likePhoto(post, post.flg ? 1 : -1);
+            await likePhoto(post,!post.flg ? 1 : -1);
             flg=true;
           }}
           style="filter: {post.flg ? 'grayscale(100%)' : 'none'};"

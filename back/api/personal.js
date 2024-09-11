@@ -7,14 +7,14 @@ const title = "personal"
     let count;
     async function processData() {
         try {
-            const body = await sql.getData(title); // データベースからデータを非同期に取得
+            const result = await sql.getData(title); // データベースからデータを非同期に取得
 
-            if (body.error) {
+            if (result.error) {
                 console.log("カウント失敗");
-                console.error(body.error);
+                console.error(result.error);
                 count = 0; // エラーが発生した場合のカウンタの初期値
             } else {
-                count = body.data.length; // データの長さをカウント
+                count = result.data.length; // データの長さをカウント
             }
 
         } catch (error) {
@@ -60,20 +60,20 @@ function deluuser(obj){
         let body=deluuser(req.body)
         
         body.who=id()
-        sel=await sql.setData(title,body)
-        sel2=await sql.setData("profile",{id:body.who,name:"",introduction:"",point:0})
-        if(sel.error || sel2.error){
-            if(sel.error.code=='23505'){
-                sel2=await sql.delData("profile",id)
+        result1=await sql.setData(title,body)
+        result2=await sql.setData("profile",{id:body.who,name:"",introduction:"",point:0})
+        if(result1.error || result2.error){
+            if(result1.error.code=='23505'){
+                result2=await sql.delData("profile",id)
                 console.log(requestType+":重複だよ")
-                console.error(sel.error)
+                console.error(result1.error)
                 res.json({error:true,msg:'その名前では登録できません'})
 
             }
             else{
                 console.log(requestType+":失敗")
-                console.error(sel.error)
-                console.error(sel2.error)
+                console.error(result1.error)
+                console.error(result2.error)
                 res.json({error:true,msg:'なんでだろうねわかんない'})
 
             }
@@ -119,14 +119,14 @@ function deluuser(obj){
     let requestType="delete::"+title
     async function httpdelete(req, res){
         let body=deluuser(req.body)
-        sel=await sql.findData(title,body)
-        if(sel.error){
+        result=await sql.findData(title,body)
+        if(result.error){
             console.log(requestType+"失敗")
-            console.error(sel.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            const flg =(sel.data === null)
+            const flg =(result.data === null)
             if(!flg){
                 if(Object.keys(obj).length==1){
                     res.json({result:flg,msg:null})
@@ -149,20 +149,20 @@ function deluuser(obj){
     let requestType="put::"+title
     async function httpput(req,res){
         let body=deluuser(req.body)
-        sel=await sql.findData(title,body)
-        if(sel.error){
+        result=await sql.findData(title,body)
+        if(result.error){
             console.log(requestType+"参照失敗")
-            console.error(sel.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            const flg =(sel.data === null)
+            const flg =(result.data === null)
             if(!flg){
                 if(Object.keys(obj).length==1){
-                    sel=await sql.upData(title,{who:req.body.user,updata:{nextpass:req.body["nextpass"]}})
-                    if(sel.error){
+                    result=await sql.upData(title,{who:req.body.user,updata:{nextpass:req.body["nextpass"]}})
+                    if(result.error){
                         console.log(requestType+"編集失敗")
-                        console.error(sel.error)
+                        console.error(result.error)
                         res.json({error:true,msg:'なんでだろうねわかんない'})
                     }
                     else{

@@ -19,14 +19,14 @@ const title = "posted"
     let count;
     async function processData() {
         try {
-            const body = await sql.getData(title); // データベースからデータを非同期に取得
+            const result = await sql.getData(title); // データベースからデータを非同期に取得
 
-            if (body.error) {
+            if (result.error) {
                 console.log("カウント失敗");
-                console.error(body.error);
+                console.error(result.error);
                 count = 0; // エラーが発生した場合のカウンタの初期値
             } else {
-                count = body.data.length; // データの長さをカウント
+                count = result.data.length; // データの長さをカウント
             }
 
         } catch (error) {
@@ -90,14 +90,14 @@ res={errer:bool,msg:text}
     }
     let requestType="post/search::"+title
     async function httpget(req,res){
-        sel=await sql.getData(title)
-        if(sel.error){
+        result=await sql.getData(title)
+        if(result.error){
             console.log(requestType+"失敗")
-            console.error(sel.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            let body=sel.data
+            let body=result.data
             console.log(body)
             body.sort((a, b) => objsort(a) - objsort(b));
             if(body.length>req.body.num){
@@ -114,15 +114,15 @@ res={errer:bool,msg:text}
 {//情報提示
     let requestType="post::get"+title
     async function httpget(req,res){
-        sel=await sql.findData(title,req.body.id)
-        if(sel.error){
+        result=await sql.findData(title,req.body.id)
+        if(result.error){
             console.log(requestType+"失敗")
-            console.error(sel.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
             console.log(requestType+"成功")
-            res.json({ success: true, data: sel.data[0].photo ,error:false});
+            res.json({ success: true, data: result.data[0].photo ,error:false});
         }
 
     }
@@ -146,10 +146,10 @@ res={errer:bool,msg:text}
             body.id=postid
             body.good=0
             console.log(body)
-            selt=await sql.setData(title,body)
-            if(selt.error){
+            result=await sql.setData(title,body)
+            if(result.error){
                 console.log(requestType+"投稿失敗")
-                console.error(selt.error)
+                console.error(result.error)
                 res.json({error:true,msg:'なんでだろうねわかんない'})
             }
             else{
@@ -178,10 +178,10 @@ res={errer:bool,msg:text}
             body.id=postid
             body.good=0
             console.log(body)
-            selt=await sql.setData(title,body)
-            if(selt.error){
+            result=await sql.setData(title,body)
+            if(result.error){
                 console.log(requestType+"投稿失敗")
-                console.error(selt.error)
+                console.error(result.error)
                 res.json({error:true,msg:'なんでだろうねわかんない'})
             }
             else{
@@ -196,10 +196,10 @@ res={errer:bool,msg:text}
 {//削除
     let requestType="delete::"+title
     async function httpdelete(req,res){
-        sel=delData(title,req.id)
-        if(sel.error){
+        result=delData(title,req.id)
+        if(result.error){
             console.log(requestType+"失敗")
-            console.error(sel.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
@@ -212,15 +212,15 @@ res={errer:bool,msg:text}
 {//編集
     let requestType="put::"+title
     async function httpput(req,res){
-        selt=await sql.upData(title,{who:req.id,updata:{description:req.body.description}})
-        if(selt.error){
+        result=await sql.upData(title,{who:req.id,updata:{description:req.body.description}})
+        if(result.error){
             console.log(requestType+"プロフィール参照失敗")
-            console.error(selt.error)
+            console.error(result.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
             console.log(requestType+"成功")
-            res.json({error:false,msg:null,body:selt.body})
+            res.json({error:false,msg:null,body:result.body})
         }
 
     }
@@ -229,25 +229,25 @@ res={errer:bool,msg:text}
 {//いいね加算
     let requestType="put/good::"+title
     async function httpputgood(req,res){
-        selt=await sql.findData(title,req.body.id)
+        result1=await sql.findData(title,req.body.id)
         
-        if(selt.error){
+        if(result1.error){
             console.log(requestType+"プロフィール参照失敗")
-            console.error(selt.error)
+            console.error(result1.error)
             res.json({error:true,msg:'なんでだろうねわかんない'})
         }
         else{
-            seltt=await sql.upData(title,{who:req.body.id,updata:{good:req.body.good+selt.data[0].good}})
-            if(seltt.error){
+            result2=await sql.upData(title,{who:req.body.id,updata:{good:req.body.good+result1.data[0].good}})
+            if(result2.error){
                 console.log(requestType+"足せなかったぜ")
-                console.error(seltt.error)
+                console.error(result2.error)
                 res.json({error:true,msg:'なんでだろうねわかんない'})
             }
             else{
                 console.log(requestType+"成功")
                 se=await sql.findData(title,req.body.id)
                 console.log(se.data)
-                res.json({error:false,msg:null,body:selt.body})
+                res.json({error:false,msg:null,body:result1.body})
 
             }
         }
