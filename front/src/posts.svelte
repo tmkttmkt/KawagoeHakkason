@@ -4,7 +4,10 @@
   let flg=true
   async function handleSubmit() {
     try {
-      if(image1&&image2&&image3){
+      if(!image1&&!image2&&!image3){
+        alert("写真を投稿してください");
+      }
+      else{
         let flg1=true,flg2=true,flg3=true
         if(image1){
           flg1=await createPost({photo:image1,description:Description1,who:who1,topic:topic1})
@@ -20,9 +23,6 @@
         } else {
           alert("投稿が失敗しました！");
         }
-      }
-      else{
-        alert("写真を投稿してください");
       }
 
     } finally {
