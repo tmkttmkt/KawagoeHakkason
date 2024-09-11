@@ -2,8 +2,10 @@
   import { Link } from "svelte-routing";
   import {createPost} from "./App.ts";
   let flg=true
-  let test=""; 
   async function handleSubmit() {
+    if(!(image1&image2&image3)){
+      alert("写真を投稿してください");
+    }
     let flg1=true,flg2=true,flg3=true
     if(image1){
       flg1=await createPost({photo:image1,description:Description1,who:who1,topic:topic1})

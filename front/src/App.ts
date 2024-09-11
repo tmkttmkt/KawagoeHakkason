@@ -34,9 +34,8 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
     return false
   }
 }
-let photostring
-// サーバーから写真取得
-let photos: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
+//
+let posts: Array<{ id:number; description: string; likes: number ;photostring:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
 let error: string | null = null;
 
 
@@ -66,7 +65,7 @@ export async function fetchPhotos(id:number) {
 }
 // サーバーから投稿取得する関数
 export async function searchPhotos() {
-  photos=[]
+  posts=[]
   try {
     const response = await fetch(url+'/posted/search',{// ここをサーバーのAPIエンドポイントに置き換える
     method: 'POST',
@@ -77,18 +76,17 @@ export async function searchPhotos() {
     });
     if (response.ok) {
       let data = await response.json();
-      let ids=data.body
-      for (const post of ids) {
+      for (const post of data.body) {
         let base64Imagest=await fetchPhotos(post.id)
-        photos = [...photos,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
+        posts = [...posts,{id:post.id, description: post.description, likes: post.good,photostring:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
       };
     } else {
-      error = "Failed to load photos";
+      error = "Failed to load posts";
     }
   } catch (err) {
     error = err.message;
   }
-  return photos
+  return posts
 }
 
 
@@ -119,11 +117,4 @@ export async function likePhoto(photo:{ id:number; description: string; likes: n
   } catch (err) {
     console.error(err);
   }
-}
-
-
-function printph(){
-  
-  console.log(photos);
-  console.log(photos.length);
 }

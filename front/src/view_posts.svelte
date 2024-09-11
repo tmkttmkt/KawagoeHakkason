@@ -21,25 +21,25 @@
   </div>
   <h1 class="title">埼玉ラリー投稿表示画面</h1>
 
-  {#each body as photo}
+  {#each body as post}
   <div class="photo-view-container">
-    <p class="view-instruction">ユーザー名:{photo.who}</p>
-    <p class="view-instruction">場所:{photo.where}</p>
-    <p class="view-instruction">説明:{photo.description}</p>
-    <p class="view-instruction">お題目:{photo.topic}</p>
+    <p class="view-instruction">ユーザー名:{post.who}</p>
+    <p class="view-instruction">場所:{post.where}</p>
+    <p class="view-instruction">説明:{post.description}</p>
+    <p class="view-instruction">お題目:{post.topic}</p>
     <div class="photo-view-area">
-      {#if photo.photostring}
-      <img src={photo.photostring} alt="Uploaded" class="photo"/>
+      {#if post.photo}
+      <img src={post.photo} alt="Uploaded" class="photo"/>
       {/if}
       <div class="iine-container">
-        <div class="like-count">{photo.good}</div>
+        <div class="like-count">{post.good}</div>
         <button class="sweet-potato" 
           on:click={() => {
-            likePhoto(photo, photo.flg ? 1 : -1);
-            photo.good += photo.flg ? 1 : -1;
-            photo.flg = !photo.flg;
+            likePhoto(post, post.flg ? 1 : -1);
+            post.good += post.flg ? 1 : -1;
+            post.flg = !post.flg;
           }}
-          style="filter: {photo.flg ? 'grayscale(100%)' : 'none'};"
+          style="filter: {post.flg ? 'grayscale(100%)' : 'none'};"
           type="button">
           🍠
         </button>    
