@@ -7,6 +7,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="./aicon.png" />
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="埼玉ラリー" />
+  <meta property="og:description" content="埼玉ラリーとは、お題を一つ選び、お題に沿った場所の写真を投稿するSNSです" />
+  <meta property="og:image" content="./photo0000-7484.jpg" />
+  <meta property="og:url" content=https://kawagoe-hakkason.vercel.app/ />
+  <meta property="og:type" content="website" />
 </svelte:head>
 
 <main>
