@@ -66,6 +66,7 @@ export async function fetchPhotos(id:number) {
 // サーバーから投稿取得する関数
 export async function searchPhotos() {
   posts=[]
+  let reterror
   try {
     const response = await fetch(url+'/posted/search',{// ここをサーバーのAPIエンドポイントに置き換える
     method: 'POST',
@@ -76,17 +77,20 @@ export async function searchPhotos() {
     });
     if (response.ok) {
       let data = await response.json();
+      reterror=data.error
       for (const post of data.body) {
         let base64Imagest=await fetchPhotos(post.id)
         posts = [...posts,{id:post.id, description: post.description, likes: post.good,photo:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
       };
     } else {
       error = "Failed to load posts";
+      reterror = true;
     }
   } catch (err) {
     error = err.message;
+    reterror = true;
   }
-  return posts
+  return {error:reterror,body:posts}
 }
 
 

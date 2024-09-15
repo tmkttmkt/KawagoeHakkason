@@ -3,9 +3,13 @@
   import { searchPhotos, likePhoto } from "./App.ts";
   let flg=true
   let body = [];
+  let error
   onMount(async () => {
-    body = await searchPhotos();
-  });
+    let res= await searchPhotos();
+    body=res.body
+    error=res.error
+    
+});
 </script>
 
 <svelte:head>
@@ -20,37 +24,42 @@
     <a class="action-button" href="/">＜Homeに戻る</a>
   </div>
   <h1 class="title">埼玉ラリー投稿表示画面</h1>
-
-  {#each body as post}
-  <div class="photo-view-container">
-    <p class="view-instruction">ユーザー名:{post.who}</p>
-    <p class="view-instruction">場所:{post.where}</p>
-    <p class="view-instruction">説明:{post.description}</p>
-    <p class="view-instruction">お題目:{post.topic}</p>
-    <div class="photo-view-area">
-      {#if post}
-      <img src={post.photo} alt="Uploaded" class="photo"/>
-      {/if}
-      <div class="iine-container">
-        <div class="like-count">{post.good}</div>
-        <button class="sweet-potato" 
-          on:click={async() => {
-            if(!flg){alert("処理を待ってください");return;}
-            flg=false;
-            post.good += post.flg ? 1 : -1;
-            post.flg = !post.flg;
-            await likePhoto(post,!post.flg ? 1 : -1);
-            flg=true;
-          }}
-          style="filter: {post.flg ? 'grayscale(100%)' : 'none'};"
-          type="button">
-          🍠
-        </button>    
+  {#if body.length>0}
+    {#each body as post}
+    <div class="photo-view-container">
+      <p class="view-instruction">ユーザー名:{post.who}</p>
+      <p class="view-instruction">場所:{post.where}</p>
+      <p class="view-instruction">説明:{post.description}</p>
+      <p class="view-instruction">お題目:{post.topic}</p>
+      <div class="photo-view-area">
+        {#if post}
+        <img src={post.photo} alt="Uploaded" class="photo"/>
+        {/if}
+        <div class="iine-container">
+          <div class="like-count">{post.good}</div>
+          <button class="sweet-potato" 
+            on:click={async() => {
+              if(!flg){alert("処理を待ってください");return;}
+              flg=false;
+              post.good += post.flg ? 1 : -1;
+              post.flg = !post.flg;
+              await likePhoto(post,!post.flg ? 1 : -1);
+              flg=true;
+            }}
+            style="filter: {post.flg ? 'grayscale(100%)' : 'none'};"
+            type="button">
+            🍠
+          </button>    
+        </div>
       </div>
     </div>
-  </div>
-  {/each}
-</main>
+    {/each}
+  {:else if error}
+    <p>通信に失敗しました</p>
+  {:else}
+    <p>少しお待ちください</p>
+  {/if}
+  </main>
 
 <style>
   main {
