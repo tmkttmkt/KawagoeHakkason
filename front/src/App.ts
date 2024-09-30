@@ -35,7 +35,6 @@ export async function createPost(pho:{photo:File,description:string,who:string,t
   }
 }
 //
-let posts: Array<{ id:number; description: string; likes: number ;photo:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
 let error: string | null = null;
 
 
@@ -65,7 +64,7 @@ export async function fetchPhotos(id:number) {
 }
 // サーバーから投稿取得する関数
 export async function searchPhotos() {
-  posts=[]
+  let posts: Array<{ id:number; description: string; likes: number ;photo:string;topic:string,where:string;good:number;who:string,flg:boolean,showflg:boolean}> = [];
   let reterror
   try {
     const response = await fetch(url+'/posted/search',{// ここをサーバーのAPIエンドポイントに置き換える
@@ -78,10 +77,23 @@ export async function searchPhotos() {
     if (response.ok) {
       let data = await response.json();
       reterror=data.error
-      for (const post of data.body) {
-        let base64Imagest=await fetchPhotos(post.id)
-        posts = [...posts,{id:post.id, description: post.description, likes: post.good,photo:base64Imagest,topic:post.topic,where:post.where,good:post.good,who:post.who,flg:true,showflg:true}]
-      };
+      posts = await Promise.all(
+        data.body.map(async (post) => {
+          let base64Imagest = await fetchPhotos(post.id);
+          return {
+            id: post.id,
+            description: post.description,
+            likes: post.good,
+            photo: base64Imagest,
+            topic: post.topic,
+            where: post.where,
+            good: post.good,
+            who: post.who,
+            flg: true,
+            showflg: true
+          };
+        })
+      );
     } else {
       error = "Failed to load posts";
       reterror = true;
