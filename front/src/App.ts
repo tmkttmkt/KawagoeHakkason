@@ -77,23 +77,20 @@ export async function searchPhotos() {
     if (response.ok) {
       let data = await response.json();
       reterror=data.error
-      posts = await Promise.all(
-        data.body.map(async (post) => {
-          let base64Imagest = await fetchPhotos(post.id);
-          return {
-            id: post.id,
-            description: post.description,
-            likes: post.good,
-            photo: base64Imagest,
-            topic: post.topic,
-            where: post.where,
-            good: post.good,
-            who: post.who,
-            flg: true,
-            showflg: true
-          };
-        })
-      );
+      posts =data.body.map(async (post) => {
+        return {
+          id: post.id,
+          description: post.description,
+          likes: post.good,
+          photo: post.photo,
+          topic: post.topic,
+          where: post.where,
+          good: post.good,
+          who: post.who,
+          flg: true,
+          showflg: true
+        };
+      })
     } else {
       error = "Failed to load posts";
       reterror = true;
