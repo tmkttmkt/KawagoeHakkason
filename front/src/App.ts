@@ -77,20 +77,13 @@ export async function searchPhotos() {
     if (response.ok) {
       let data = await response.json();
       reterror=data.error
-      posts =data.body.map(async (post) => {
-        return {
-          id: post.id,
-          description: post.description,
-          likes: post.good,
-          photo: post.photo,
-          topic: post.topic,
-          where: post.where,
-          good: post.good,
-          who: post.who,
-          flg: true,
-          showflg: true
-        };
-      })
+      let topast=data.body
+      for (const post of topast) {
+        post["flg"]=true
+        post["showflg"]=true
+      }
+      posts =topast
+      console.log(posts)
     } else {
       error = "Failed to load posts";
       reterror = true;
